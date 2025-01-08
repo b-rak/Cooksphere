@@ -6,6 +6,7 @@ const getAllRecipes = async (req, res) => {
     const recipes = await Recipe.find();
     return res.send(recipes);
   } catch (e) {
+    console.log(e);
     return res.status(500).send({error: {message: 'Error getting recipes!', code: 500}});
   }
 };
@@ -19,6 +20,7 @@ const getRecipe = async (req, res) => {
     const recipe = await Recipe.findOne({_id: id});
     return res.send(recipe);
   } catch (e) {
+    console.log(e);
     return res.status(500).send({error: {message: 'Error getting recipe!', code: 500}});
   }
 };
@@ -32,6 +34,7 @@ const getRecipesByCategory = async (req, res) => {
     const recipes = await Recipe.find({category});
     return res.send(recipes);
   } catch (e) {
+    console.log(e);
     return res.status(500).send({error: {message: 'Error getting recipes!', code: 500}});
   }
 };
