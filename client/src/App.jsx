@@ -1,33 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
+import { getRecipes, getCategories } from './ApiClient';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [recipes, setRecipes] = useState([])
+
+  useEffect(() => {
+    getRecipes()
+    .then(data => setRecipes(data))
+    .catch(e => console.log(e));
+  }, []);
+
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    getCategories()
+    .then(data => setCategories(data))
+    .catch(e => console.log(e));
+  }, []);
 
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        {recipes.map(recipe => <h3 key={recipe._id}>{recipe.name}</h3>)}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div>
+        {categories.map(category => <h3 key={category._id}>{category.name}</h3>)}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
