@@ -39,4 +39,14 @@ const getRecipesByCategory = async (req, res) => {
   }
 };
 
-export {getAllRecipes, getRecipe, getRecipesByCategory};
+const getLastAddedRecipes = async (req, res) => {
+  try {
+    const recipes = await Recipe.find().sort({ createdAt: -1 }).limit(10);
+    return res.send(recipes);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send({error: {message: 'Error getting recipes!', code: 500}});
+  }
+};
+
+export {getAllRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes};
