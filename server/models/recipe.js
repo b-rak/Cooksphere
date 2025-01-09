@@ -7,10 +7,11 @@ const recipeSchema = new mongoose.Schema({
   instructions: {type: [String], required: true},
   image: {type: String, required: true},
   tags: {type: [String], required: true},
-  ingredients: {type: [{ingrName: String, measure: String}], required: true},
+  ingredients: {type: [{ingredient: String, measure: String}], required: true},
+  cookingTimeInMinutes: {type: Number, required: true},
   rating: {type: Number, default: 0},
   reviews: {type: [String], default: []},
-});
+}, {timestamps: true});
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 

@@ -1,4 +1,5 @@
 'use strict';
+import mongoose from 'mongoose';
 import Category from '../models/category.js';
 import Recipe from './../models/recipe.js';
 
@@ -16,12 +17,28 @@ const categories = [];
 const clearDatabase = async () => {
   await Recipe.deleteMany();
   await Category.deleteMany();
+  console.log('MongoDB cleared!');
 };
 
 const formatRecipe = (recipe) => {
   if (!categories.includes(recipe.strCategory)) {
     categories.push(recipe.strCategory);
   }
+  const ingredients = [];
+  for (let i=1; i<101; i++) {
+    const ingredient = recipe[`strIngredient${i}`];
+    const measure = recipe[`strMeasure${i}`];
+    if (!ingredient && !measure) {
+      break;
+    } else if (ingredient.trim() === '' && measure.trim() === '') {
+      continue;
+    }
+    ingredients.push({
+      ingredient: ingredient.trim(),
+      measure: measure.trim()
+    });
+  }
+
   return {
     name: recipe.strMeal,
     // TODO area: recipe.strArea,
@@ -29,7 +46,8 @@ const formatRecipe = (recipe) => {
     instructions: recipe.strInstructions.split('\r\n').filter(instr => instr.trim() !== ''),
     image: recipe.strMealThumb,
     tags: recipe.strTags ? recipe.strTags.split(',') : [],
-    ingredients: [{ingrName: recipe.strIngredient1, measure: recipe.strMeasure1}],
+    ingredients: ingredients,
+    cookingTimeInMinutes: 45,
   };
 };
 
@@ -46,10 +64,12 @@ const fillDatabase = async () => {
   await Recipe.insertMany(formattedRecipes);
   const formattedCategories = categories.map(category => ({name: category}));
   await Category.insertMany(formattedCategories);
-  console.log('DB filled successfully!');
+  console.log('MongoDB filled successfully!');
 };
 
 (async () => {
   await clearDatabase();
   await fillDatabase();
+  await mongoose.disconnect();
+  console.log('Disconnected to MongoDB!');
 })();
