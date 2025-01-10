@@ -45,7 +45,7 @@ const formatRecipe = (recipe) => {
     category: recipe.strCategory,
     instructions: recipe.strInstructions.split('\r\n').filter(instr => instr.trim() !== ''),
     image: recipe.strMealThumb,
-    tags: recipe.strTags ? recipe.strTags.split(',') : [],
+    tags: recipe.strTags ? recipe.strTags.split(',').map(tag => tag.trim()) : [],
     ingredients: ingredients,
     cookingTimeInMinutes: 45,
   };
