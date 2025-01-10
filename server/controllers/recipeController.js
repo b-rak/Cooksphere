@@ -49,4 +49,18 @@ const getLastAddedRecipes = async (req, res) => {
   }
 };
 
-export {getAllRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes};
+const postRecipe = async (req, res) => {
+  try {
+    const body = req.body;
+    if (!body) {
+      return res.status(400).send({error: {message: 'Request body missing!', code: 400}});
+    }
+    const recipe = await Recipe.create(body);
+    return res.status(201).send(recipe);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send({error: {message: 'Error creating recipe!', code: 500}});
+  }
+};
+
+export {getAllRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe};
