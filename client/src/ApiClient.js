@@ -12,9 +12,9 @@ async function makeServerRequest (endpoint, options) {
   }
 }
 
-const getRecipes = async () => {
+const getRecipes = async (category) => {
   try {
-    return await makeServerRequest('recipes/category/Vegan');
+    return await makeServerRequest(`recipes/category/${category}`);
   } catch (e) {
     throw new Error(e);
   }
@@ -28,4 +28,24 @@ const getCategories = async () => {
   }
 };
 
-export {getRecipes, getCategories};
+const getLatestRecipes = async () => {
+  try {
+    return await makeServerRequest('recipes/latest');
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+const uploadRecipe = async (recipeData) => {
+  try {
+    return await makeServerRequest('recipe', {
+      method: 'POST',
+      body: JSON.stringify(recipeData),
+      headers: {'Content-Type': 'application/json'}
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export {getRecipes, getCategories, getLatestRecipes, uploadRecipe};
