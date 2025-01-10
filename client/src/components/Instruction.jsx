@@ -1,9 +1,9 @@
-export function Instruction ({number, value, handleChange}) {
+export function Instruction ({number, handleChange}) {
 
   return (
     <>
       <div className="flex flex-col">
-        <label for={'instruction-' + number}>{'Step ' + number}</label>
+        <label htmlFor={'instruction-' + number}>{'Step ' + number}</label>
         <textarea id={'instruction-' + number} name={'instruction-' + number} rows="3" className="border" onChange={handleChange}>
         </textarea>
       </div>

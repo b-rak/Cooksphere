@@ -184,7 +184,7 @@ function formatFormData (data) {
           </div>
           {/* category */}
           <div>
-            <label for="category">Category</label>
+            <label htmlFor="category">Category</label>
             <select name="category" id="category" className='px-4 py-2 rounded-lg ml-4' onChange={handleChange}>
               <option disabled selected value hidden>-- Select a category --</option>
               <option value="Breakfast">Breakfast</option>

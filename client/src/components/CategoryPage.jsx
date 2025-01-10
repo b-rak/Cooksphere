@@ -164,7 +164,7 @@ export function CategoryPage () {
         </div>
         <div className='px-2 py-4 bg-orange-200'>
           <div className='mb-4'>
-            <label for="sort" className='text-lg'>Sort recipes by:</label>
+            <label htmlFor="sort" className='text-lg'>Sort recipes by:</label>
             <select name="sort" id="sort" className='px-4 py-2 rounded-lg ml-4' onChange={(event) => handleSelect(event)}>
               <option disabled selected value hidden>-- Select an option --</option>
               <option value="A-Z">A-Z</option>

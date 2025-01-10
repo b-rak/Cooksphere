@@ -9,5 +9,5 @@ export function Hero () {
         <input type='text' placeholder='Search recipe'></input>
       </div>
     </>
-  )
+  );
 };
