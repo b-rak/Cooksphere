@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { getRecipes, getCategories } from './ApiClient';
+import { getCategories, getLatestRecipes } from './ApiClient';
+import { CategoryList } from './components/CategoryList';
+import { Hero } from './components/Hero';
+import { Navbar } from './components/Navbar';
+import { CategoryPage } from './components/CategoryPage';
+import { Recipe } from './components/Recipe';
+import { RecipeList } from './components/RecipeList';
+import { Routes, Route } from "react-router";
+import { Profile } from './components/Profile';
 
 function App() {
-  const [recipes, setRecipes] = useState([])
-
-  useEffect(() => {
-    getRecipes()
-    .then(data => setRecipes(data))
-    .catch(e => console.log(e));
-  }, []);
-
   const [categories, setCategories] = useState([])
+  const [latest, setLatest] = useState([])
 
   useEffect(() => {
     getCategories()
@@ -19,16 +20,31 @@ function App() {
     .catch(e => console.log(e));
   }, []);
 
+  useEffect(() => {
+    getLatestRecipes()
+    .then(data => setLatest(data))
+    .catch(e => console.log(e));
+  }, []);
+
   return (
     <>
-      <div>
-        {recipes.map(recipe => <h3 key={recipe._id}>{recipe.name}</h3>)}
-      </div>
-      <div>
-        {categories.map(category => <h3 key={category._id}>{category.name}</h3>)}
-      </div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Hero />
+            <div className='bg-orange-200 pl-8 py-4'>
+              <CategoryList title={'Recipe Categories'} listItems={categories}/>
+              <RecipeList title={'New Added Recipes'} recipes={latest}/>
+            </div>
+          </>
+        }/>
+        <Route path="/recipe/:recipeId" element={<Recipe />}/>
+        <Route path="/recipes/category/:category" element={<CategoryPage />}/>
+        <Route path="/profile" element={<Profile />}/>
+      </Routes>
     </>
   )
 }
 
-export default App
+export default App;

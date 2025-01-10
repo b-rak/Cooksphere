@@ -5,7 +5,7 @@ import { RecipeResults } from './RecipeResults';
 import { Checkbox } from './common/Checkbox';
 import { Radiobutton } from './common/Radiobutton';
 
-export function Page () {
+export function CategoryPage () {
   const { category } = useParams();
   const url = `/categories/${category.toLowerCase()}.jpg`;
 
