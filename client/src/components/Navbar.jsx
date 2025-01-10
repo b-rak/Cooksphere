@@ -11,8 +11,10 @@ export function Navbar () {
         <nav>
           <a href=""></a>
         </nav>
-        <img src="/logo.png" alt="Profilepicture" className="w-16"/>
+        <Link to='/profile'>
+          <img src="/profile_woman.png" alt="Profilepicture" className="w-16 rounded-full border-solid border-orange-500 border-2"/>
+        </Link>
       </header>
     </>
-  )
+  );
 };
