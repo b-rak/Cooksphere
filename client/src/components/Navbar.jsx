@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router"
+import { AuthContext } from '../App';
 
 export function Navbar () {
+  const currentUser = useContext(AuthContext);
   return (
     <>
       <header className='flex justify-between items-center px-8 py-2 shadow-[0_0_0.25rem_#808080]'>
@@ -12,7 +15,7 @@ export function Navbar () {
           <a href=""></a>
         </nav>
         <Link to='/profile'>
-          <img src="/profile_woman.png" alt="Profilepicture" className="w-16 rounded-full border-solid border-orange-500 border-2"/>
+          <img src={'/profile_' + currentUser.image +'.png'} alt="Profilepicture" className="w-16 rounded-full border-solid border-orange-500 border-2"/>
         </Link>
       </header>
     </>

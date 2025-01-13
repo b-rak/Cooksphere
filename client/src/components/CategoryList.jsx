@@ -9,7 +9,7 @@ export function CategoryList ({title, listItems}) {
             <>
               <Link to={'/recipes/category/' + listItem.name} key={listItem._id}>
                 <div key={listItem._id} className='min-w-56 cursor-pointer'>
-                  <img src={'categories/' + listItem.name.toLowerCase() + '.jpg'} alt={listItem.name} className='w-56 h-56 rounded-lg'/>
+                  <img src={listItem.image} alt={listItem.name} className='w-56 h-56 rounded-lg'/>
                   <span className='text-lg'>{listItem.name}</span>
                 </div>
               </Link>
