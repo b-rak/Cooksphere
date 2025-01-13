@@ -1,7 +1,9 @@
 'use strict';
+import bcrypt from "bcrypt";
 import mongoose from 'mongoose';
 import Category from '../models/category.js';
 import Recipe from './../models/recipe.js';
+import User from './../models/user.js';
 
 const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 const alphabet = [
@@ -15,8 +17,9 @@ const recipes = [];
 const categories = [];
 
 const clearDatabase = async () => {
-  await Recipe.deleteMany();
-  await Category.deleteMany();
+  // await Recipe.deleteMany();
+  // await Category.deleteMany();
+  await User.deleteMany();
   console.log('MongoDB cleared!');
 };
 
@@ -61,9 +64,21 @@ const fillDatabase = async () => {
   }
 
   const formattedRecipes = recipes.map(recipe => formatRecipe(recipe));
-  await Recipe.insertMany(formattedRecipes);
+  // await Recipe.insertMany(formattedRecipes);
   const formattedCategories = categories.map(category => ({name: category}));
-  await Category.insertMany(formattedCategories);
+  // await Category.insertMany(formattedCategories);
+  const user = {
+    firstname: 'Zappe',
+    lastname: 'Thomson',
+    email: 'zappe.thomson@test.com',
+    password: 'Test123!'
+  };
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(user.password, salt);
+  await User.create({
+    ...user,
+    password: hashedPassword
+  });
   console.log('MongoDB filled successfully!');
 };
 
