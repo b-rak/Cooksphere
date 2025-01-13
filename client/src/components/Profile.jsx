@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Popup } from "./Popup";
-import { Upload } from "./Upload";
 import { AuthContext } from '../App';
+import { RecipeResults } from "./RecipeResults";
 
 export function Profile () {
   const currentUser = useContext(AuthContext);
@@ -13,7 +13,6 @@ export function Profile () {
   }
 
   function closePopup (event) {
-    console.log(event);
     setVisible(false);
     document.body.classList.remove('overflow-hidden');
   }
@@ -32,13 +31,14 @@ export function Profile () {
         </div>
       </div>
       <div>
-        <div>Saved Recipes</div>
-        <div>Uploaded Recipes</div>
+        <h2 className='text-2xl font-bold mb-2'>Favorite Recipes</h2>
+        <RecipeResults recipes={currentUser.favoriteRecipes} />
+        <h2 className='text-2xl font-bold mb-2'>Uploaded Recipes</h2>
+        <RecipeResults recipes={currentUser.uploadedRecipes} />
       </div>
       <br />
       <br />
       {visible && <Popup closePopup={closePopup} />}
-      <Upload />
     </>
   );
 };

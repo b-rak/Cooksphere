@@ -153,8 +153,8 @@ export function Upload () {
       image: imageUrl
     };
     const formatted = formatFormData(updatedFormState);
-    const response = await uploadRecipe(formatted);
-    const updateResponse = await updateUploaded(currentUser, response);
+    const recipe = await uploadRecipe(formatted);
+    await updateUploaded(currentUser, recipe);
     setFormState(initialState);
     setNumOfIngredients(1)
     setNumOfInstructions(1)
