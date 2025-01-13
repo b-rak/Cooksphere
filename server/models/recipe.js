@@ -13,6 +13,6 @@ const recipeSchema = new mongoose.Schema({
   reviews: {type: [String], default: []},
 }, {timestamps: true});
 
+recipeSchema.index({ name: 'text', category: 'text', tags: 'text' });
 const Recipe = mongoose.model('Recipe', recipeSchema);
-
 export default Recipe;

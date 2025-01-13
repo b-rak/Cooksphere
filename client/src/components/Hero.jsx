@@ -1,5 +1,6 @@
+import { useState, useMemo } from "react";
+import { useNavigate } from 'react-router';
 export function Hero () {
-  const random = Math.floor(Math.random()*10);
   const imageIds = [
     'cyt8zgujhq6olzqphqgb',
     'g68uhpx7wcdo597dfj5x',
@@ -12,13 +13,28 @@ export function Hero () {
     'z5pexddrqeiwpasbk7gj',
     'dp7chefwtxuqqzdult99',
   ];
+  const random = useMemo(() => Math.floor(Math.random()*imageIds.length), []);
   const heroURL = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/${imageIds[random]}.jpg`;
+
+  const [input, setInput] = useState('');
+  function handleChange (event) {
+    setInput(event.target.value);
+  }
+
+  const navigate = useNavigate();
+  function handleSubmit (event) {
+    event.preventDefault();
+    navigate(`/search?q=${input}`);
+  }
 
   return (
     <>
       <div className='h-[32rem] flex flex-col items-center gap-4 pt-8 bg-cover bg-center bg-no-repeat' style={{ backgroundImage: `url(${heroURL})` }}>
         <h1>Hero Search</h1>
-        <input type='text' placeholder='Search recipe'></input>
+        <form onSubmit={handleSubmit}>
+          <input type='text' placeholder='Search recipe' value={input} onChange={handleChange}></input>
+          <button type="submit">Search</button>
+        </form>
       </div>
     </>
   );

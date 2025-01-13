@@ -5,10 +5,11 @@ import { CategoryList } from './components/CategoryList';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { CategoryPage } from './components/CategoryPage';
-import { RecipeDetailsPage } from './components/RecipeDetailsPage';
+import { RecipeDetailsPage } from './components/recipedetailspage/RecipeDetailsPage';
 import { RecipeList } from './components/RecipeList';
 import { Routes, Route } from "react-router";
 import { Profile } from './components/Profile';
+import { SearchResultPage } from './components/SearchResultPage';
 
 export const AuthContext = createContext(null);
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/recipe/:recipeId" element={<RecipeDetailsPage />}/>
           <Route path="/recipes/category/:category" element={<CategoryPage />}/>
           <Route path="/profile" element={<Profile />}/>
+          <Route path="/search" element={<SearchResultPage />}/>
         </Routes>
       </AuthContext.Provider>
     </>

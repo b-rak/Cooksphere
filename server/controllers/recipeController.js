@@ -1,10 +1,16 @@
 'use strict';
 import Recipe from './../models/recipe.js';
 
-const getAllRecipes = async (req, res) => {
+const getRecipes = async (req, res) => {
   try {
-    const recipes = await Recipe.find();
-    return res.send(recipes);
+    if (!req.query) {
+      const recipes = await Recipe.find();
+      return res.send(recipes);
+    } else {
+      const searchQuery = req.query['q'];
+      const recipes = await Recipe.find({$text: {$search: searchQuery}});
+      return res.send(recipes);
+    }
   } catch (e) {
     console.log(e);
     return res.status(500).send({error: {message: 'Error getting recipes!', code: 500}});
@@ -63,4 +69,4 @@ const postRecipe = async (req, res) => {
   }
 };
 
-export {getAllRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe};
+export {getRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe};
