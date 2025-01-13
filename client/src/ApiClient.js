@@ -95,4 +95,24 @@ const updateUploaded = async (user, recipe) => {
   }
 };
 
-export {getRecipes, getRecipe, getCategories, getLatestRecipes, uploadRecipe, uploadImage, login, updateUploaded};
+const updateFavorites = async (user, recipe, favorite) => {
+  try {
+    return await makeServerRequest('user/favorites', {
+      method: 'PUT',
+      body: JSON.stringify({user, recipe, favorite}),
+      headers: {'Content-Type': 'application/json'}
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+const searchRecipes = async (searchinput) => {
+  try {
+    return await makeServerRequest(`recipes?q=${searchinput}`);
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export {getRecipes, getRecipe, getCategories, getLatestRecipes, uploadRecipe, uploadImage, login, updateUploaded, updateFavorites, searchRecipes};
