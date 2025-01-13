@@ -20,6 +20,14 @@ const getRecipes = async (category) => {
   }
 };
 
+const getRecipe = async (recipeId) => {
+  try {
+    return await makeServerRequest(`recipes/${recipeId}`);
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
 const getCategories = async () => {
   try {
     return await makeServerRequest('categories');
@@ -48,4 +56,43 @@ const uploadRecipe = async (recipeData) => {
   }
 };
 
-export {getRecipes, getCategories, getLatestRecipes, uploadRecipe};
+const uploadImage = async (formData) => {
+  try {
+    const response = await fetch('https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    if (!response.ok) {
+      throw new Error('Error uploading image');
+    }
+    return await response.json();
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+const login = async ({email, password}) => {
+  try {
+    return await makeServerRequest('user/authenticate', {
+      method: 'POST',
+      body: JSON.stringify({email, password}),
+      headers: {'Content-Type': 'application/json'}
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+const updateUploaded = async (user, recipe) => {
+  try {
+    return await makeServerRequest('user/uploaded', {
+      method: 'PUT',
+      body: JSON.stringify({user, recipe}),
+      headers: {'Content-Type': 'application/json'}
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export {getRecipes, getRecipe, getCategories, getLatestRecipes, uploadRecipe, uploadImage, login, updateUploaded};
