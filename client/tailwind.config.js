@@ -7,7 +7,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'fira': ['Fira Sans', 'serif']
+        'fira': ['Fira Sans', 'serif'],
+        'poppins': ['Poppins', 'serif'],
+        'roboto': ['Roboto', 'serif']
       },
     },
   },
