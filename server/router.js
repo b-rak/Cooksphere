@@ -1,7 +1,8 @@
 'use strict';
 import express from 'express';
-import {getAllRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe} from './controllers/recipeController.js';
 import {getAllCategories} from './controllers/categoryController.js';
+import {getAllRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe} from './controllers/recipeController.js';
+import {login, updateUploaded} from './controllers/userController.js';
 
 const router = express.Router();
 
@@ -14,5 +15,7 @@ router.post('/recipe', postRecipe);
 
 router.get('/categories', getAllCategories);
 
+router.post('/user/authenticate', login);
+router.put('/user/uploaded', updateUploaded);
 
 export default router;
