@@ -9,7 +9,7 @@ const login = async (req, res) => {
       return res.status(401).send({error: {message: 'Missing credentials!', code: 401}});
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate('uploadedRecipes');
     if (!user) {
       return res.status(401).send({ error: 'Wrong credentials' });
     }
