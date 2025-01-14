@@ -36,7 +36,7 @@ export function SearchResultPage () {
       <div className="flex px-4">
         <Filter recipes={results} updateFilter={(filter) => setFilter(filter)}/>
         <div className="w-full pt-12 pb-4">
-          <h2 className="text-2xl font-bold py-1">{`Search results for "${searchParams.get('q')}"`}</h2>
+          <h2 className="text-2xl font-bold py-1 font-fira">{`Search results for "${searchParams.get('q')}"`}</h2>
           <SortSelect setSorting={setSorting} />
           <RecipeResults recipes={filtered} message='No matching recipes found for your search. Please try a different search.'/>
         </div>

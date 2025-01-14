@@ -41,7 +41,7 @@ export function CategoryPage () {
       <div className='w-3/4'>
         <div className='h-80 w-full relative'>
           <div className='h-80 bg-cover bg-[50%_45%] bg-no-repeat opacity-75' style={{ backgroundImage: `url(${url})` }}></div>
-          <h3 className='absolute top-8 left-4 text-5xl font-bold'>{category + ' Recipes'}</h3>
+          <h3 className='absolute top-12 left-4 text-5xl font-bold font-fira'>{category + ' Recipes'}</h3>
         </div>
         <div className='px-2 py-4'>
           <SortSelect setSorting={setSorting} />
