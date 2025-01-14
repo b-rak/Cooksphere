@@ -35,7 +35,7 @@ export function CategoryPage () {
 
   return (
     <>
-    <div className='flex'>
+    <div className='flex pl-4'>
       <Filter recipes={recipes} updateFilter={(newFilterState) => setFilter(newFilterState)}/>
 
       <div className='w-3/4'>
@@ -43,9 +43,9 @@ export function CategoryPage () {
           <div className='h-80 bg-cover bg-[50%_45%] bg-no-repeat opacity-75' style={{ backgroundImage: `url(${url})` }}></div>
           <h3 className='absolute top-8 left-4 text-5xl font-bold'>{category + ' Recipes'}</h3>
         </div>
-        <div className='px-2 py-4 bg-orange-200'>
+        <div className='px-2 py-4'>
           <SortSelect setSorting={setSorting} />
-          <RecipeResults recipes={filtered}/>
+          <RecipeResults recipes={filtered} message='No results matching the filter selection.'/>
         </div>
       </div>
     </div>

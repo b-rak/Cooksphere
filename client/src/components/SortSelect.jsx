@@ -3,9 +3,9 @@ import { useState } from "react";
 export function SortSelect ({setSorting}) {
   return (
     <>
-      <div className='mb-4'>
+      <div className='mb-4 px-'>
         <label htmlFor="sort" className='text-lg'>Sort recipes by:</label>
-        <select name="sort" id="sort" className='px-4 py-2 rounded-lg ml-4' onChange={(event) => setSorting(event.target.value)}>
+        <select name="sort" id="sort" className='px-2 py-2 rounded-lg ml-4 cursor-pointer bg-softyellow' onChange={(event) => setSorting(event.target.value)}>
           <option disabled selected value hidden>-- Select an option --</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>

@@ -46,17 +46,17 @@ export function Filter ({recipes, updateFilter}) {
   }
   return (
     <>
-      <div className='w-1/4 px-12 pt-12'>
-        <h3 className='text-xl font-semibold'>Filters</h3>
-        <button className='px-4 py-2 bg-slate-300 rounded-lg' onClick={resetFilter}>Reset filter</button>
-        <div>
+      <div className='w-1/4 mt-12 mb-4 mr-4 p-4  bg-brown rounded-lg flex flex-col gap-4'>
+        <h3 className='text-xl font-semibold text-white'>Filters</h3>
+        <button className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm w-fit mx-auto" onClick={resetFilter}>Reset filter</button>
+        <div className="bg-lightbeige p-2 rounded-md">
           <h4 className='text-lg font-medium'>Tags</h4>
           <ul className='flex flex-col'>
             {tagElements}
           </ul>
         </div>
 
-        <div>
+        <div className="bg-lightbeige p-2 rounded-md">
           <h4 className='text-lg font-medium'>Duration</h4>
           <ul className='flex flex-col'>
             <Checkbox id='time-quick' value='quick' text='Quick (Under 30 Minutes)' handleChange={handleChange}/>
@@ -65,7 +65,7 @@ export function Filter ({recipes, updateFilter}) {
           </ul>
         </div>
 
-        <div>
+        <div className="bg-lightbeige p-2 rounded-md">
           <h4 className='text-lg font-medium'>Rating</h4>
           <fieldset>
             <Radiobutton id='ratings-all' name='ratings' value='all' text='All recipes' handleChange={handleChange}/>
