@@ -40,14 +40,14 @@ function App() {
     <>
       <AuthContext.Provider value={currentUser}>
         <Navbar />
-        <main className='bg-[#F8F4E3]'>
+        <main className='bg-lightbeige'>
           <Routes>
             <Route path="/" element={
               <>
                 <Hero />
                 <div className='mx-8 py-4'>
                   <CategoryList title={'Recipe Categories'} listItems={categories}/>
-                  <hr className=' my-4 text-center h-[0.0625rem] bg-[#4A2C2A] border-0'/>
+                  <hr className=' my-4 text-center h-[0.0625rem] bg-deepbrown border-0'/>
                   <RecipeList title={'New Added Recipes'} recipes={latest}/>
                 </div>
               </>

@@ -30,7 +30,7 @@ export function Hero () {
   return (
     <>
       <div className='h-[32rem] flex flex-col items-center gap-4 pt-8 bg-cover bg-center bg-no-repeat' style={{ backgroundImage: `url(${heroURL})` }}>
-        <div className="bg-[#B18966] bg-opacity-75 p-2 rounded-md">
+        <div className="bg-brown bg-opacity-75 p-2 rounded-md">
           <h3 className="mb-2 text-center font-medium text-white">Find your next favorite dish!</h3>
           <form onSubmit={handleSubmit} className="flex gap-2 items-center">
             <input
@@ -39,7 +39,7 @@ export function Hero () {
               value={input}
               onChange={handleChange}
               className="px-1 h-7 outline-none rounded-md"></input>
-            <button type="submit" className="bg-[#FF6F3C] text-white hover:bg-[#D95427] rounded-md px-2 py-1 uppercase text-sm">Search</button>
+            <button type="submit" className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm">Search</button>
           </form>
         </div>
       </div>
