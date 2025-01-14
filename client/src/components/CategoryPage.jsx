@@ -6,10 +6,11 @@ import { Filter } from './Filter';
 import { SortSelect } from './SortSelect';
 import { filterRecipes } from "../utils/filterRecipes";
 import { sortRecipes } from '../utils/sortRecipes';
+import { categories } from "../utils/imagePaths";
 
 export function CategoryPage () {
   const { category } = useParams();
-  const url = `/categories/${category.toLowerCase()}.jpg`;
+  const url = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/${categories[category]}.jpg`;
 
   const [recipes, setRecipes] = useState([]);
   const [filtered, setFiltered] = useState([]);
