@@ -115,4 +115,16 @@ const searchRecipes = async (searchinput) => {
   }
 };
 
-export {getRecipes, getRecipe, getCategories, getLatestRecipes, uploadRecipe, uploadImage, login, updateUploaded, updateFavorites, searchRecipes};
+const rateAndReview = async (recipeId, reviewObj) => {
+  try {
+    return await makeServerRequest(`recipes/${recipeId}`, {
+      method: 'PUT',
+      body: JSON.stringify(reviewObj),
+      headers: {'Content-Type': 'application/json'}
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export {getRecipes, getRecipe, getCategories, getLatestRecipes, uploadRecipe, uploadImage, login, updateUploaded, updateFavorites, searchRecipes, rateAndReview};
