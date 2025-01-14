@@ -21,9 +21,16 @@ export default {
       },
       borderColor: {
         'deepbrown': '#4A2C2A',
+        'deeporange': '#D95427',
       },
       accentColor: {
         'softyellow': '#FFC857'
+      },
+      textColor: {
+        'error': '#bc302b'
+      },
+      outlineColor: {
+        'error': '#bc302b'
       }
     },
   },
