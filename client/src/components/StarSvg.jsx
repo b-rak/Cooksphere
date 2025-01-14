@@ -3,7 +3,7 @@ export function StarSvg ({percentage, index}) {
   // https://stackoverflow.com/a/34293307
   return (
     <>
-      <svg className="w-8 h-8 text-yellow-300" viewBox="0 0 32 32"  xmlns="http://www.w3.org/2000/svg">
+      <svg className="w-8 h-8" viewBox="0 0 32 32"  xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id={'gradient' + '-' + index}>
                 <stop offset={percentage + '%'} stopColor="#FFC857"/>
