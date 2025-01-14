@@ -38,7 +38,7 @@ export function Rating ({rating, type, setRating}) {
                 onChange={() => handleChange(currentRating)}
               />
               <span
-                className='w-8 h-8 text-3xl hover:text-[#FFC857]'
+                className='w-8 h-8 text-3xl hover:text-softyellow'
                 style={{
                   color:
                     currentRating <= (hoveredStar || selectedStar) ? "#ffc107" : "#e4e5e9",

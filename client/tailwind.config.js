@@ -27,6 +27,7 @@ export default {
         'softyellow': '#FFC857'
       },
       textColor: {
+        'softyellow': '#FFC857',
         'deepbrown': '#4A2C2A',
         'error': '#bc302b'
       },
