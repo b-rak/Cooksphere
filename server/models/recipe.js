@@ -10,7 +10,7 @@ const recipeSchema = new mongoose.Schema({
   ingredients: {type: [{ingredient: String, measure: String}], required: true},
   cookingTimeInMinutes: {type: Number, required: true},
   rating: {type: Number, default: 0},
-  reviews: {type: [String], default: []},
+  reviews: {type: [{author: String, message: String, rating: Number, timestamp: Date}], default: []},
 }, {timestamps: true});
 
 recipeSchema.index({ name: 'text', category: 'text', tags: 'text' });

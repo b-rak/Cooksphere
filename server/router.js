@@ -1,7 +1,7 @@
 'use strict';
 import express from 'express';
 import {getAllCategories} from './controllers/categoryController.js';
-import {getRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe} from './controllers/recipeController.js';
+import {getRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe, postReview} from './controllers/recipeController.js';
 import {login, updateUploaded, updateFavorites} from './controllers/userController.js';
 
 const router = express.Router();
@@ -12,6 +12,7 @@ router.get('/recipes/:recipeId', getRecipe);
 router.get('/recipes/category/:category', getRecipesByCategory);
 
 router.post('/recipe', postRecipe);
+router.put('/recipes/:recipeId', postReview);
 
 router.get('/categories', getAllCategories);
 

@@ -69,4 +69,28 @@ const postRecipe = async (req, res) => {
   }
 };
 
-export {getRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe};
+const postReview = async (req, res) => {
+  try {
+    const {rating, message} = req.body;
+    if (!rating && !message) {
+      return res.status(400).send({error: {message: 'Missing rating or review!', code: 400}});
+    }
+    const id = req.params.recipeId;
+    if (!id) {
+      return res.status(400).send({error: {message: 'No recipe id provided!', code: 400}});
+    }
+    const recipe = await Recipe.findOne({_id: id});
+    const oldRating = recipe.rating;
+
+    recipe.reviews.push(req.body);
+    const newRating = parseFloat(((oldRating + rating)/recipe.reviews.length).toFixed(2));
+    recipe.rating = newRating;
+    await recipe.save();
+    return res.status(200).send(req.body);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send({error: {message: 'Error creating recipe!', code: 500}});
+  }
+};
+
+export {getRecipes, getRecipe, getRecipesByCategory, getLastAddedRecipes, postRecipe, postReview};
