@@ -15,7 +15,7 @@ export function Navbar () {
           <a href=""></a>
         </nav>
         <Link to='/profile'>
-          <img src={'/profile_' + currentUser.image +'.png'} alt="Profilepicture" className="w-16 rounded-full border-solid border-orange-500 border-2"/>
+          <img src={'/profile_' + currentUser.image +'.png'} alt="Profilepicture" className="w-16 rounded-full border-solid border-[#4A2C2A] border-2"/>
         </Link>
       </header>
     </>
