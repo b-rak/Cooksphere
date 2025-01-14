@@ -40,21 +40,24 @@ function App() {
     <>
       <AuthContext.Provider value={currentUser}>
         <Navbar />
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <div className='bg-orange-200 pl-8 py-4'>
-                <CategoryList title={'Recipe Categories'} listItems={categories}/>
-                <RecipeList title={'New Added Recipes'} recipes={latest}/>
-              </div>
-            </>
-          }/>
-          <Route path="/recipe/:recipeId" element={<RecipeDetailsPage />}/>
-          <Route path="/recipes/category/:category" element={<CategoryPage />}/>
-          <Route path="/profile" element={<Profile />}/>
-          <Route path="/search" element={<SearchResultPage />}/>
-        </Routes>
+        <main className='bg-[#F8F4E3]'>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Hero />
+                <div className='mx-8 py-4'>
+                  <CategoryList title={'Recipe Categories'} listItems={categories}/>
+                  <hr className=' my-4 text-center h-[0.0625rem] bg-[#4A2C2A] border-0'/>
+                  <RecipeList title={'New Added Recipes'} recipes={latest}/>
+                </div>
+              </>
+            }/>
+            <Route path="/recipe/:recipeId" element={<RecipeDetailsPage />}/>
+            <Route path="/recipes/category/:category" element={<CategoryPage />}/>
+            <Route path="/profile" element={<Profile />}/>
+            <Route path="/search" element={<SearchResultPage />}/>
+          </Routes>
+        </main>
       </AuthContext.Provider>
     </>
   )

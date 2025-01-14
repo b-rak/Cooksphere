@@ -3,19 +3,21 @@ import { Link } from "react-router"
 export function CategoryList ({title, listItems}) {
   return (
     <>
-      <h2 className='text-2xl font-bold mb-2'>{title}</h2>
+    <div className="px-8 py-4 bg-[#B18966] rounded-lg">
+      <h2 className='text-2xl font-bold mb-2 text-white'>{title}</h2>
         <div className='flex gap-4 overflow-x-scroll scrollbar-none'>
           {listItems.map(listItem => (
             <>
               <Link to={'/recipes/category/' + listItem.name} key={listItem._id}>
-                <div key={listItem._id} className='min-w-56 cursor-pointer'>
+                <div key={listItem._id} className='min-w-56 cursor-pointer bg-[#F8F4E3] rounded-lg shadow_2 p-1'>
                   <img src={listItem.image} alt={listItem.name} className='w-56 h-56 rounded-lg'/>
-                  <span className='text-lg'>{listItem.name}</span>
+                  <span className='text-lg px-2'>{listItem.name}</span>
                 </div>
               </Link>
             </>)
           )}
         </div>
+      </div>
     </>
   );
 };
