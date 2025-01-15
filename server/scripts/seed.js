@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import Category from '../models/category.js';
 import Recipe from './../models/recipe.js';
 import User from './../models/user.js';
+import { categories as categoryImages } from "../../client/src/utils/imagePaths.js";
 
 const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 const alphabet = [
@@ -15,10 +16,11 @@ const alphabet = [
 ];
 const recipes = [];
 const categories = [];
+const cloudinaryUrl = `https://res.cloudinary.com/drm5qsq0p/image/upload/v1736524856/`;
 
 const clearDatabase = async () => {
-  // await Recipe.deleteMany();
-  // await Category.deleteMany();
+  await Recipe.deleteMany();
+  await Category.deleteMany();
   await User.deleteMany();
   console.log('MongoDB cleared!');
 };
@@ -64,9 +66,9 @@ const fillDatabase = async () => {
   }
 
   const formattedRecipes = recipes.map(recipe => formatRecipe(recipe));
-  // await Recipe.insertMany(formattedRecipes);
-  const formattedCategories = categories.map(category => ({name: category}));
-  // await Category.insertMany(formattedCategories);
+  await Recipe.insertMany(formattedRecipes);
+  const formattedCategories = categories.map(category => ({name: category, image: `${cloudinaryUrl}${categoryImages[category]}.jpg`}));
+  await Category.insertMany(formattedCategories);
   const user = {
     firstname: 'Zappe',
     lastname: 'Thomson',
