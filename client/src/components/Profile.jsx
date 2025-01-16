@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Popup } from "./Popup";
-import { AuthContext } from '../App';
+import { AuthContex } from "../context/AuthContext";
 import { RecipeResults } from "./RecipeResults";
 
 export function Profile () {
-  const currentUser = useContext(AuthContext);
+  const currentUser = useContext(AuthContex);
   const [visible, setVisible] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [uploaded, setUploaded] = useState([]);
@@ -20,9 +20,15 @@ export function Profile () {
   }
 
   useEffect(() => {
-      if (currentUser.favoriteRecipes) {
+      if (currentUser?.favoriteRecipes) {
         setFavorites(currentUser.favoriteRecipes);
+      } else {
+        setFavorites([]);
+      }
+      if (currentUser?.uploadedRecipes) {
         setUploaded(currentUser.uploadedRecipes);
+      } else {
+        setUploaded([]);
       }
     }, [currentUser]);
 
@@ -33,7 +39,10 @@ export function Profile () {
         <div className="flex gap-8 my-4 items-center ml-[20%] shadow_2 rounded-lg w-fit py-8 px-12">
           <img src="profile_man.png" alt="Profilepicture" className="w-32 rounded-full border-solid border-deepbrown border-2"/>
           <div className="flex flex-col gap-4">
-            <div className="text-xl">{currentUser.firstname + ' ' + currentUser.lastname}</div>
+            
+          <div className="text-xl">{currentUser ? `${currentUser.firstname} ${currentUser.lastname}` : 'Guest User'}</div>
+            {/* <div className="text-xl">{currentUser.firstname + ' ' + currentUser.lastname}</div> */}
+            
             <button
               className="bg-[#FF6F3C] text-white hover:bg-[#D95427] gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
               onClick={openPopup}

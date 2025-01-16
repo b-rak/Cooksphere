@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { Rating } from "../Rating";
-import { AuthContext } from "../../App";
+import { AuthContex } from "../../context/AuthContext"; 
 import { rateAndReview } from "../../ApiClient";
 import { useParams } from "react-router";
 import { Checkbox } from "../common/Checkbox";
 
 export function Reviews ({reviews}) {
   const {recipeId} = useParams();
-  const currentUser = useContext(AuthContext);
+  const currentUser = useContext(AuthContex);
 
   function formatDate (timestamp) {
     const date = timestamp.split('T')[0];

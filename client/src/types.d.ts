@@ -1,17 +1,33 @@
+
 export interface Category {
     id: number;
     name: string;
 }
 
 export interface Recipe {
-    id: number;
-    title: string;
-    description: string;
-    imageUrl: string;
+    id: string;
+    name: string;
+    category: string;
+    instructions: string[];
+    image: string;
+    tags: string[];
+    ingredients: { ingredient: string; measure: string }[];
+    cookingTimeInMinutes: number;
+    rating: number;
+    reviews: {
+      author: string;
+      message: string;
+      rating: number;
+      timestamp: Date;
+    }[];
 }
 
-export interface AuthUser {
-    id: number;
+export interface User {
+    id: string;
+    firstname: string;
+    lastname: string;
     email: string;
-    name: string;
-}
+    image: string;
+    favoriteRecipes: any[]; // Replace `any[]` with the actual type
+    uploadedRecipes: any[]; // Replace `any[]` with the actual type
+  }

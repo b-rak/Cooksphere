@@ -1,12 +1,12 @@
 import { Rating } from '../Rating';
 import { Link } from 'react-router';
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from '../../App';
+import { AuthContex } from '../../context/AuthContext';
 import {updateFavorites} from '../../ApiClient';
 
 export function GeneralCard ({recipe}) {
 
-  const currentUser = useContext(AuthContext);
+  const currentUser = useContext(AuthContex);
   const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {

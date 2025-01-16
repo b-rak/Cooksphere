@@ -1,6 +1,10 @@
+import { AuthContex } from './context/AuthContext';
+import { useFetchData } from './hooks/useFetchData';
+
 import { createContext, useEffect, useState } from 'react';
 import './App.css';
 import { getCategories, getLatestRecipes, login } from './ApiClient';
+
 import { CategoryList } from './components/CategoryList';
 import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
@@ -11,12 +15,15 @@ import { Routes, Route } from "react-router";
 import { Profile } from './components/Profile';
 import { SearchResultPage } from './components/SearchResultPage';
 
+// import { User } from './types';
+
 //!Authentication context. This will remain here for now but could be moved to a separate file if the project scales.
-export const AuthContext = createContext(null);
+// export const AuthContext = createContext(null);
 
 
 function App() {
-  
+  const { categories, latestRecipes, currentUser } = useFetchData();
+
   useEffect(() => {
     console.log(`
     🚀 Starting the Cooksphere app! 
@@ -30,33 +37,32 @@ function App() {
   //! States to manage categories, latest recipes, and the current user.
   //! This logic will be refactored into a custom hook (`useFetchData`).
   
-  const [categories, setCategories] = useState([])
-  const [latest, setLatest] = useState([])
-
-  const [currentUser, setCurrentUser] = useState({});
+  // const [categories, setCategories] = useState([])
+  // const [latest, setLatest] = useState([])
+  // const [currentUser, setCurrentUser] = useState({});
   
   //*| The logic for fetching data (categories, recipes, and user login) |
   //*| via useEffect will be moved into a custom hook named useFetchData.|
   //! useEffect to fetch categories.
-  useEffect(() => {
-    getCategories()
-    .then(data => setCategories(data))
-    .catch(e => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   getCategories()
+  //   .then(data => setCategories(data))
+  //   .catch(e => console.log(e));
+  // }, []);
   
   //! useEffect to fetch the latest recipes.
-  useEffect(() => {
-    getLatestRecipes()
-    .then(data => setLatest(data))
-    .catch(e => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   getLatestRecipes()
+  //   .then(data => setLatest(data))
+  //   .catch(e => console.log(e));
+  // }, []);
   
   //! useEffect to log in using test credentials. 
-  useEffect(() => {
-    login({email: 'zappe.thomson@test.com', password: 'Test123!'})
-      .then(data => setCurrentUser(data))
-      .catch(e => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   login({email: 'zappe.thomson@test.com', password: 'Test123!'})
+  //     .then(data => setCurrentUser(data))
+  //     .catch(e => console.log(e));
+  // }, []);
 
 
   //*| All routes inside <Routes> will be moved to a separate component |
@@ -66,7 +72,7 @@ function App() {
   return (
     <>
     {/* Context provider to share use data across the app */}
-      <AuthContext.Provider value={currentUser}>
+      <AuthContex.Provider value={currentUser}>
       
       {/* Navbar component will remain unchaged */}
         <Navbar />
@@ -84,7 +90,7 @@ function App() {
                 {/* In CategoryList and RecipeList, the data logic will be centralized in the custom hook */}
                   <CategoryList title={'Recipe Categories'} listItems={categories}/>
                   <hr className=' my-4 text-center h-[0.0625rem] bg-deepbrown border-0'/>
-                  <RecipeList title={'New Added Recipes'} recipes={latest}/>
+                  <RecipeList title={'New Added Recipes'} recipes={latestRecipes}/>
                 </div>
               </>
             }/>
@@ -94,7 +100,7 @@ function App() {
             <Route path="/search" element={<SearchResultPage />}/>
           </Routes>
         </main>
-      </AuthContext.Provider>
+      </AuthContex.Provider>
     </>
   )
 }

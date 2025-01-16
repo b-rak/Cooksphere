@@ -4,11 +4,11 @@ import { Input } from "./common/Input";
 import { Instruction } from "./Instruction";
 import { uploadImage, uploadRecipe, updateUploaded } from "../ApiClient";
 import { FileUpload } from "./FileUpload";
-import { AuthContext } from '../App';
+import { AuthContex } from "../context/AuthContext";
 
 // ! General component: i know this file is a mess, but the tracking the form state and validation stressed me a lot.
 export function Upload () {
-  const currentUser = useContext(AuthContext);
+  const currentUser = useContext(AuthContex);
 
   const [numOfIngredients, setNumOfIngredients] = useState(1);
   const [numOfInstructions, setNumOfInstructions] = useState(1);
