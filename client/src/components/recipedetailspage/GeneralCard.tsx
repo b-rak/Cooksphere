@@ -4,28 +4,9 @@ import { Link } from 'react-router';
 import { useContext, useEffect, useState } from "react";
 import { AuthContex } from '../../context/AuthContext';
 import {updateFavorites} from '../../ApiClient';
-import { Recipe, GeneralCardProps } from '../../types';
+import { GeneralCardProps } from '../../types';
 import { User } from '../../types';
 
-
-// type Recipe = {
-//   _id: string;
-//   name: string;
-//   image: string;
-//   category: string;
-//   cookingTimeInMinutes: number;
-//   rating: number;
-// };
-
-// const currentUser = useContext(AuthContex);
-
-// type User = {
-//   favoriteRecipes: Recipe[];
-// };
-
-// type GeneralCardProps = {
-//   recipe: Recipe;
-// };
 
 export function GeneralCard({ recipe }: GeneralCardProps) {
 

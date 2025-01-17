@@ -48,4 +48,4 @@ export interface Recipe  {
 
 export interface GeneralCardProps {
     recipe: Recipe;
-  };
+};
