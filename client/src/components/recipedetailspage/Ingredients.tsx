@@ -1,4 +1,17 @@
-export function Ingredients ({ingredients}) {
+import React from 'react';
+
+// Define the type for a single ingredient
+type Ingredient = {
+  measure: string; // Measurement
+  ingredient: string; // Ingredient name
+};
+
+type IngredientsProps = {
+  
+  ingredients: Ingredient[]; // Ingredients is an array of strings
+};
+
+export function Ingredients({ ingredients }: IngredientsProps ) {
   return (
     <>
       <div className='p-4 bg-brown rounded-xl h-fit shadow_2'>

@@ -11,6 +11,9 @@ import { Routes, Route } from "react-router";
 import { Profile } from './components/Profile';
 import { SearchResultPage } from './components/SearchResultPage';
 
+
+
+
 export const AuthContext = createContext(null);
 function App() {
   const [categories, setCategories] = useState([])

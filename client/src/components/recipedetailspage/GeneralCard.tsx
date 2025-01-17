@@ -1,16 +1,34 @@
+import React from 'react';
 import { Rating } from '../Rating';
 import { Link } from 'react-router';
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from '../../App';
 import {updateFavorites} from '../../ApiClient';
 
-export function GeneralCard ({recipe}) {
+type Recipe = {
+  _id: string;
+  name: string;
+  image: string;
+  category: string;
+  cookingTimeInMinutes: number;
+  rating: number;
+};
 
-  const currentUser = useContext(AuthContext);
+type User = {
+  favoriteRecipes: Recipe[];
+};
+
+type GeneralCardProps = {
+  recipe: Recipe;
+};
+
+export function GeneralCard({ recipe }: GeneralCardProps) {
+
+  const currentUser= useContext(AuthContext) as User | null;
   const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
-    if (currentUser.favoriteRecipes) {
+    if (currentUser && currentUser.favoriteRecipes){// Add validation for currentUser
       console.log(favorite)
       console.log(currentUser)
       const isFavorite = currentUser.favoriteRecipes.some(
@@ -20,14 +38,15 @@ export function GeneralCard ({recipe}) {
     }
   }, [currentUser]);
 
-  function formatCookingTime (time) {
+  function formatCookingTime (time: number):string {
     const minutes = time%60;
     const hours = (time-minutes)/60;
 
     return (hours > 0 ? hours + 'h ' : '') + (minutes > 0 ? minutes + 'min' : '');
   }
 
-  async function handleFavorite () {
+  async function handleFavorite() {
+    if (!currentUser) return;
     const newFavoriteStatus = !favorite;
     setFavorite(newFavoriteStatus);
     await updateFavorites(currentUser, recipe, newFavoriteStatus);
