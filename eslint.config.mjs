@@ -21,6 +21,7 @@ export default [
     files: ["server/**/*.{js,mjs,cjs}"],
     plugins: { n: pluginNode },
     rules: {
+      "react/prop-types": "off",
       "n/no-unpublished-require": "off", // Example rule for Node.js
       "n/no-unsupported-features/es-syntax": "off",
     },
