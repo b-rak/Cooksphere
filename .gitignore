@@ -13,3 +13,6 @@ node_modules
 
 # Images (now accessed from cloud)
 images
+
+# Ignore all .json files
+.json
