@@ -30,4 +30,9 @@ export interface User {
     image: string;
     favoriteRecipes: any[]; // Replace `any[]` with the actual type
     uploadedRecipes: any[]; // Replace `any[]` with the actual type
-  }
+}
+
+export interface AppRoutesProps {
+    categories: any[];
+    latestRecipes: any[];
+}
