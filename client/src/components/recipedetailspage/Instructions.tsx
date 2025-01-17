@@ -1,4 +1,10 @@
-export function Instructions ({instructions}) {
+import React from 'react';
+
+type InstructionsProps = {
+  instructions: string[]; // Instructions is an array of strings
+};
+
+export function Instructions({ instructions }: InstructionsProps) {
   return (
     <>
       <div className='p-4 bg-brown rounded-xl shadow_2'>
@@ -7,12 +13,12 @@ export function Instructions ({instructions}) {
         </h2>
         <ol className='p-4 flex flex-col gap-4'>
           {instructions.map((instruction, index) => (
-            <>
+
               <li key={index} className='p-2 rounded-md bg-lightbeige flex flex-col gap-2'>
                 <div className='h-fit w-[3.75rem] text-center rounded-md bg-softyellow text-deepbrown font-poppins uppercase text-sm'>{'Step ' + (index+1)}</div>
                 {instruction}
               </li>
-            </>
+            
           ))}
         </ol>
       </div>

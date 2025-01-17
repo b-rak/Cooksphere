@@ -36,3 +36,16 @@ export interface AppRoutesProps {
     categories: any[];
     latestRecipes: any[];
 }
+
+export interface Recipe  {
+    _id: string;
+    name: string;
+    image: string;
+    category: string;
+    cookingTimeInMinutes: number;
+    rating: number;
+};
+
+export interface GeneralCardProps {
+    recipe: Recipe;
+  };
