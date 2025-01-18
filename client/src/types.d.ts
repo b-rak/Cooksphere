@@ -5,6 +5,7 @@ export interface Category {
 }
 
 export interface Recipe {
+    recipeId: string;
     id: string;
     name: string;
     category: string;
@@ -28,8 +29,28 @@ export interface User {
     lastname: string;
     email: string;
     image: string;
-    favoriteRecipes: any[]; // Replace `any[]` with the actual type
-    uploadedRecipes: any[]; // Replace `any[]` with the actual type
+    favoriteRecipes: any[];
+    uploadedRecipes: any[]; 
+}
+
+export interface Review {
+    author: Author;
+    message: string;
+    rating: number;
+    timestamp: string;
+    likesCount?: number;
+}
+
+export interface NewReview {
+    recipeId: string;
+    message: string;
+    rating: number;
+    author?: string;
+    timestamp?: string;
+}
+
+export interface ReviewsProps {
+    reviews: Reviews[];
 }
 
 export interface AppRoutesProps {
@@ -37,15 +58,6 @@ export interface AppRoutesProps {
     latestRecipes: any[];
 }
 
-export interface Recipe  {
-    _id: string;
-    name: string;
-    image: string;
-    category: string;
-    cookingTimeInMinutes: number;
-    rating: number;
-};
-
 export interface GeneralCardProps {
     recipe: Recipe;
-};
+}

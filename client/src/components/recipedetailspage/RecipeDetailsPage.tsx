@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { getRecipe } from '../../ApiClient';
@@ -5,10 +6,13 @@ import { GeneralCard } from './GeneralCard';
 import { Ingredients } from './Ingredients';
 import { Instructions } from './Instructions';
 import { Reviews } from './Reviews';
+import { Recipe } from '../../types';
 
 export function RecipeDetailsPage () {
-  const { recipeId } = useParams();
-  const [recipe, setRecipe] = useState(null);
+  const { recipeId} = useParams<{ recipeId: string }>();
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  
+  
   useEffect(() => {
     getRecipe(recipeId)
       .then(data => setRecipe(data))

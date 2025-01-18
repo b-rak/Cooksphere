@@ -1,45 +1,53 @@
-import { useContext, useState } from "react";
+import React, { FormEvent, useState, useContext } from "react";
 import { Rating } from "../Rating";
 import { AuthContex } from "../../context/AuthContext"; 
 import { rateAndReview } from "../../ApiClient";
 import { useParams } from "react-router";
 import { Checkbox } from "../common/Checkbox";
+import { NewReview, ReviewsProps } from "../../types";
 
-export function Reviews ({reviews}) {
-  const {recipeId} = useParams();
+
+export function Reviews ({reviews}: ReviewsProps) {
+  const {recipeId} = useParams< { recipeId: string } >();
   const currentUser = useContext(AuthContex);
 
-  function formatDate (timestamp) {
+  const [review, setReview] = useState<string>('');
+  const [rating, setRating] = useState<number>(0);
+  const [onlyRating, setOnlyRating] = useState<boolean>(false);
+  
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newVal = event.target.checked;
+    setOnlyRating(newVal);
+  };
+  
+  function formatDate (timestamp: string) {
     const date = timestamp.split('T')[0];
     return date.split('-').reverse().join('.');
-  }
+  };
 
-  const [review, setReview] = useState('');
-  const [rating, setRating] = useState(0);
-  const [onlyRating, setOnlyRating] = useState(false);
-
-  async function handleSubmit (event) {
+  async function handleSubmit (event: FormEvent) {
     event.preventDefault();
+    if (!currentUser) return;
 
-    const newReview = {
-      author: currentUser.firstname + ' ' + currentUser.lastname,
+    const newReview: NewReview = {
+      // author: `${currentUser.firstname} ${currentUser.lastname}`,
+      recipeId: recipeId as string,
       message: review,
-      rating: rating,
-      timestamp: (new Date()).toISOString()
+      rating: rating
+      // timestamp: (new Date()).toISOString()
     };
     await rateAndReview(recipeId, newReview);
-  }
+    setReview("");
+    setRating(0);
+    setOnlyRating(false);
+  };
 
   function validate() {
     if (onlyRating && rating===0) return true;
     else if(!onlyRating && (rating===0 || review.trim() === '')) return true;
     return false;
-  }
+  };
 
-  function handleChange (event) {
-    const newVal = event.target.checked;
-    setOnlyRating(newVal);
-  }
   return (
     <>
       <div className='p-4 rounded-xl md:col-span-2 bg-brown shadow_2'>
@@ -77,5 +85,5 @@ export function Reviews ({reviews}) {
           </div>
       </div>
     </>
-  )
+  );
 }

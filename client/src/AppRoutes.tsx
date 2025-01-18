@@ -5,10 +5,9 @@ import { Hero } from "./components/Hero";
 import { CategoryList } from "./components/CategoryList";
 import { RecipeList } from "./components/RecipeList";
 import { CategoryPage } from "./components/CategoryPage";
-import { RecipeDetailsPage } from "./components/recipedetailspage/RecipeDetailsPage";
 import { Profile } from "./components/Profile";
 import { SearchResultPage } from "./components/SearchResultPage";
-
+import { RecipeDetailsPage } from "./components/recipedetailspage/RecipeDetailsPage";
 
 export const AppRoutes: React.FC<AppRoutesProps> = ({ categories, latestRecipes}) => {
     return (
