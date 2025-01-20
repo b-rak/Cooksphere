@@ -12,7 +12,7 @@ export function Navbar () {
         </Link>
         <h1 className="flex-grow text-center font-fira font-black italic text-4xl">Cooksphere</h1>
         <nav>
-          <a href=""></a>
+          <a></a>
         </nav>
         <Link to='/profile'>
           <img
