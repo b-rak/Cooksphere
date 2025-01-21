@@ -20,4 +20,19 @@ router.post('/user/authenticate', login);
 router.put('/user/uploaded', updateUploaded);
 router.put('/user/favorites', updateFavorites);
 
+
+router.get("/status" ,(req, res) => {
+    res.status(200).send("Server is running ✨🚀");
+});
+
+router.post("/" ,(req, res) => {
+    res.status(200).json(req.body);
+});
+
+
+router.get("/PORT", (req, res) => {
+    const PORT = process.env.PORT || 3000;
+    res.status(404).send(`Server listening on port ${PORT} 🙌✨`);
+});
+
 export default router;
