@@ -11,7 +11,7 @@ export function CategoryList ({title, listItems}) {
               <Link to={'/recipes/category/' + listItem.name} key={listItem._id}>
                 <div  className='min-w-56 cursor-pointer bg-lightbeige rounded-lg shadow_2 p-1'>
                   <img src={listItem.image} alt={listItem.name} className='w-56 h-56 rounded-lg'/>
-                  <span className='text-lg px-2'>{listItem.name}</span>
+                  <span data-testid={`listItem-${listItem._id}`} className='text-lg px-2'>{listItem.name}</span>
                 </div>
               </Link>
             )
