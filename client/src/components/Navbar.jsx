@@ -10,7 +10,7 @@ export function Navbar () {
         <Link to='/'>
           <img src="/logo.png" alt="Cooksphere Logo" className="w-16"/>
         </Link>
-        <h1 className="flex-grow text-center font-fira font-black italic text-4xl">Cooksphere</h1>
+        <h1 data-testid="cypress-title" className="flex-grow text-center font-fira font-black italic text-4xl">Cooksphere</h1>
         <nav>
           <a></a>
         </nav>
