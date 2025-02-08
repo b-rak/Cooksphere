@@ -1,10 +1,10 @@
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = "http://localhost:3000";
 
-async function makeServerRequest (endpoint, options) {
+async function makeServerRequest(endpoint, options) {
   try {
     const response = await fetch(`${BASE_URL}/${endpoint}`, options);
     if (!response.ok) {
-      throw new Error('Error fetching data');
+      throw new Error("Error fetching data");
     }
     return await response.json();
   } catch (error) {
@@ -30,7 +30,7 @@ const getRecipe = async (recipeId) => {
 
 const getCategories = async () => {
   try {
-    return await makeServerRequest('categories');
+    return await makeServerRequest("categories");
   } catch (e) {
     throw new Error(e);
   }
@@ -38,7 +38,7 @@ const getCategories = async () => {
 
 const getLatestRecipes = async () => {
   try {
-    return await makeServerRequest('recipes/latest');
+    return await makeServerRequest("recipes/latest");
   } catch (e) {
     throw new Error(e);
   }
@@ -46,10 +46,10 @@ const getLatestRecipes = async () => {
 
 const uploadRecipe = async (recipeData) => {
   try {
-    return await makeServerRequest('recipe', {
-      method: 'POST',
+    return await makeServerRequest("recipe", {
+      method: "POST",
       body: JSON.stringify(recipeData),
-      headers: {'Content-Type': 'application/json'}
+      headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
     throw new Error(e);
@@ -58,12 +58,15 @@ const uploadRecipe = async (recipeData) => {
 
 const uploadImage = async (formData) => {
   try {
-    const response = await fetch('https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload', {
-      method: 'POST',
-      body: formData,
-    });
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
     if (!response.ok) {
-      throw new Error('Error uploading image');
+      throw new Error("Error uploading image");
     }
     return await response.json();
   } catch (e) {
@@ -71,12 +74,12 @@ const uploadImage = async (formData) => {
   }
 };
 
-const login = async ({email, password}) => {
+const login = async ({ email, password }) => {
   try {
-    return await makeServerRequest('user/authenticate', {
-      method: 'POST',
-      body: JSON.stringify({email, password}),
-      headers: {'Content-Type': 'application/json'}
+    return await makeServerRequest("user/authenticate", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
     throw new Error(e);
@@ -85,10 +88,10 @@ const login = async ({email, password}) => {
 
 const updateUploaded = async (user, recipe) => {
   try {
-    return await makeServerRequest('user/uploaded', {
-      method: 'PUT',
-      body: JSON.stringify({user, recipe}),
-      headers: {'Content-Type': 'application/json'}
+    return await makeServerRequest("user/uploaded", {
+      method: "PUT",
+      body: JSON.stringify({ user, recipe }),
+      headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
     throw new Error(e);
@@ -97,10 +100,10 @@ const updateUploaded = async (user, recipe) => {
 
 const updateFavorites = async (user, recipe, favorite) => {
   try {
-    return await makeServerRequest('user/favorites', {
-      method: 'PUT',
-      body: JSON.stringify({user, recipe, favorite}),
-      headers: {'Content-Type': 'application/json'}
+    return await makeServerRequest("user/favorites", {
+      method: "PUT",
+      body: JSON.stringify({ user, recipe, favorite }),
+      headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
     throw new Error(e);
@@ -118,13 +121,25 @@ const searchRecipes = async (searchinput) => {
 const rateAndReview = async (recipeId, reviewObj) => {
   try {
     return await makeServerRequest(`recipes/${recipeId}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(reviewObj),
-      headers: {'Content-Type': 'application/json'}
+      headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
     throw new Error(e);
   }
 };
 
-export {getRecipes, getRecipe, getCategories, getLatestRecipes, uploadRecipe, uploadImage, login, updateUploaded, updateFavorites, searchRecipes, rateAndReview};
+export {
+  getRecipes,
+  getRecipe,
+  getCategories,
+  getLatestRecipes,
+  uploadRecipe,
+  uploadImage,
+  login,
+  updateUploaded,
+  updateFavorites,
+  searchRecipes,
+  rateAndReview,
+};

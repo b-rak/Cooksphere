@@ -30,7 +30,7 @@ export function Hero () {
               value={input}
               onChange={handleChange}
               className="px-1 h-7 outline-none rounded-md"></input>
-            <button type="submit" className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm">Search</button>
+            <button type="submit" className="bg-orange hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm"><b>Search</b></button>
           </form>
         </div>
       </div>
