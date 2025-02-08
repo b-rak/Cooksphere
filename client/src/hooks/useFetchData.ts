@@ -24,10 +24,10 @@ export const useFetchData = () => {
     
       console.log(`
         🚀 Starting the Cooksphere app!
-        ✨ Shoutout to Murak for the incredible work on this project!
+        ✨ Shoutout to Burak for the incredible work on this project!
         ⚠️ The only reason we are making changes is because CodeWorks demands it.
-        If it were up to us, I'd leave this masterpiece untouched. 🙌
-        Let's call this "forced improvement." 😅
+          If it were up to us, I'd leave this masterpiece untouched. 🙌
+          Let's call this "forced improvement." 😅
         `);
   }, []);
 

@@ -1,5 +1,5 @@
-'use strict';
-import Category from './../models/category.js';
+"use strict";
+import Category from "./../models/category.js";
 
 const getAllCategories = async (req, res) => {
   try {
@@ -7,8 +7,10 @@ const getAllCategories = async (req, res) => {
     return res.send(categories);
   } catch (e) {
     console.log(e);
-    return res.status(500).send({error: {message: 'Error getting categories!', code: 500}});
+    return res
+      .status(500)
+      .send({ error: { message: "Error getting categories!", code: 500 } });
   }
 };
 
-export {getAllCategories};
+export { getAllCategories };

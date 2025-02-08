@@ -1,37 +1,14 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
+import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-import pluginNode from "eslint-plugin-n";
 
+
+/** @type {import('eslint').Linter.Config[]} */
 export default [
-  // Common configuration for all files
-  {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
-    ignores: ["node_modules/**", "server/node_modules/**", "server/node_modules/ipaddr.js"],
-    languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
-    },
-  },
-  // JavaScript recommended rules
+  {files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"]},
+  {languageOptions: { globals: globals.browser }},
   pluginJs.configs.recommended,
-  // React-specific rules
+  ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-  // Node.js-specific rules
-  {
-    files: ["server/**/*.{js,mjs,cjs}"],
-    plugins: { n: pluginNode },
-    rules: {
-      "react/prop-types": "off",
-      "n/no-unpublished-require": "off", // Example rule for Node.js
-      "n/no-unsupported-features/es-syntax": "off",
-    },
-  },
-  // React-specific overrides
-  {
-    files: ["client/**/*.{js,jsx}"],
-    rules: {
-      "react/react-in-jsx-scope": "off", // React 17+ doesn't require React in scope
-      "react/prop-types": "off", // Turn off if not using prop-types
-    },
-  },
 ];
