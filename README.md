@@ -117,8 +117,13 @@ Once both the frontend and the backend are running open [localhost:5173](http://
 ##
 <h3>Legacy Project Team</h3>
 
-  <a href="https://github.com/j7sus"><img src="https://github.com/j7sus.png" width="60px" hspace="10" style="border-radius: 100px; outline: solid 1px gray;outline-offset: -0.5px;" alt="j7sus's GitHub Avatar"></a>
-  <a href="https://github.com/lmleg9"><img src="https://avatars.githubusercontent.com/u/166398249?v=4" width="60px" hspace="10" style="border-radius: 100px; outline: solid 1px gray;outline-offset: -0.5px;" alt="lmleg9's GitHub Avatar"></a>
+
+<a href="https://github.com/j7sus">
+  <img src="https://github.com/j7sus.png" width="60px" hspace="10" style="border-radius: 100px; outline: solid 1px gray;outline-offset: -0.5px;">
+</a>
+<a href="hhttps://github.com/lmleg9">
+  <img src="https://avatars.githubusercontent.com/u/166398249?v=4" width="60px" hspace="10" style="border-radius: 100px; outline: solid 1px gray;outline-offset: -0.5px;">
+</a>
 
 ##
 :) <div align="center">
