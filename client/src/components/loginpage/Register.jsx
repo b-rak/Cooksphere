@@ -1,10 +1,13 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { getUser, register } from "../../services/UserService";
 import { Input } from "../common/Input";
 
 export function Register({ setShowLogin }) {
   const initialState = {
+    gender: "male",
     firstname: "",
     lastname: "",
     email: "",
@@ -21,17 +24,32 @@ export function Register({ setShowLogin }) {
     setFormState((prevState) => ({ ...prevState, [name]: value }));
   }
 
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function validateForm() {
+    if (formState.firstname.trim() === "" || formState.lastname.trim() === "") {
+      setError("Please enter a firstname and lastname!");
+      return false;
+    } else if (!EMAIL_REGEX.test(formState.email)) {
+      setError('Please enter a email in the format "test@mail.com"');
+      return false;
+    } else if (formState.password.trim().length < 8) {
+      setError("Please enter a password with minimum length 8");
+      return false;
+    } else if (formState.password.trim() !== formState.passwordRepeat.trim()) {
+      setError("The two entered passwords are not the same!");
+      return false;
+    }
+    setError("");
+    return true;
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("FORM", formState);
-    return;
-    if (formState.email === "" || formState.password === "") {
-      setError("Please fill in the form!");
-      return;
-    }
+    if (!validateForm()) return;
     try {
-      const { accessToken } = await login(formState);
-      if (!accessToken) setError("Invalid credentials");
+      const { accessToken } = await register(formState);
+      if (!accessToken) setError("Error registering new account");
 
       Cookies.set("accessToken", accessToken);
       const user = await getUser();
@@ -40,7 +58,7 @@ export function Register({ setShowLogin }) {
       setFormState(initialState);
       await navigate("/");
     } catch (e) {
-      setError("Invalid credentials");
+      setError("Error registering new account");
     }
   }
 
@@ -53,6 +71,34 @@ export function Register({ setShowLogin }) {
         <h2 className="text-2xl font-bold font-fira text-white">Register</h2>
         {error ? <p className="text-error">{error}</p> : ""}
 
+        <div className="flex w-full">
+          <div
+            className={
+              "text-center basis-1/2 py-2 cursor-pointer rounded-l-md " +
+              (formState.gender === "male"
+                ? "bg-softyellow"
+                : "border border-softyellow text-lightbeige")
+            }
+            onClick={() =>
+              setFormState((prev) => ({ ...prev, gender: "male" }))
+            }
+          >
+            Male
+          </div>
+          <div
+            className={
+              "text-center basis-1/2 py-2 cursor-pointer rounded-r-md " +
+              (formState.gender !== "male"
+                ? "bg-softyellow"
+                : "border border-softyellow text-lightbeige")
+            }
+            onClick={() =>
+              setFormState((prev) => ({ ...prev, gender: "female" }))
+            }
+          >
+            Female
+          </div>
+        </div>
         <Input
           id="firstname"
           name="firstname"
@@ -92,7 +138,7 @@ export function Register({ setShowLogin }) {
           type="submit"
           className="bg-orange text-white hover:bg-deeporange mt-4 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-full"
         >
-          Login
+          Register
         </button>
         <p className="mt-4">
           Already have an account? Login{" "}

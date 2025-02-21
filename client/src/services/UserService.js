@@ -32,6 +32,18 @@ const login = async ({ email, password }) => {
   }
 };
 
+const register = async ({ gender, firstname, lastname, email, password }) => {
+  try {
+    return await makeServerRequest("user/register", {
+      method: "POST",
+      body: JSON.stringify({ gender, firstname, lastname, email, password }),
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
 const getUser = async () => {
   try {
     return await makeServerRequest("user");
@@ -40,4 +52,4 @@ const getUser = async () => {
   }
 };
 
-export { getUser, login };
+export { getUser, login, register };

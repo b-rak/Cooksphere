@@ -34,7 +34,7 @@ export function Profile() {
         <h2 className="text-3xl font-bold ml-[20%] font-fira">My Profile</h2>
         <div className="flex gap-8 my-4 items-center ml-[20%] shadow_2 rounded-lg w-fit py-8 px-12">
           <img
-            src="profile_man.png"
+            src={"/profile_" + currentUser.image + ".png"}
             alt="Profilepicture"
             className="w-32 rounded-full border-solid border-deepbrown border-2"
           />

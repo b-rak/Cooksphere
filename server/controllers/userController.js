@@ -36,6 +36,42 @@ const login = async (req, res) => {
   }
 };
 
+const createUser = async (req, res) => {
+  try {
+    const { gender, firstname, lastname, email, password } = req.body;
+    if (!firstname || !lastname || !email || !password) {
+      return res
+        .status(400)
+        .send({ error: { message: "Missing user data!", code: 400 } });
+    }
+
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(409).send({ error: "User already exists!" });
+    }
+    if (password.length < 8) {
+      return res.status(409).send({ error: "Password is too short!" });
+    }
+
+    const hash = await bcrypt.hash(password, rounds);
+    const newUser = await User.create({
+      firstname,
+      lastname,
+      image: gender === "male" ? "man" : "woman",
+      email,
+      password: hash,
+    });
+
+    const accessToken = jwt.sign({ id: newUser._id }, SECRET_KEY);
+    return res.status(201).send({ accessToken });
+  } catch (e) {
+    console.log(e);
+    return res
+      .status(500)
+      .send({ error: { message: "Error creating user!", code: 500 } });
+  }
+};
+
 const updateUploaded = async (req, res) => {
   try {
     const { user, recipe } = req.body;
@@ -102,4 +138,4 @@ const getUser = async (req, res) => {
   return res.status(200).send(req.user);
 };
 
-export { getUser, login, updateFavorites, updateUploaded };
+export { createUser, getUser, login, updateFavorites, updateUploaded };

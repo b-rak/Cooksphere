@@ -10,6 +10,7 @@ import {
   postReview,
 } from "./controllers/recipeController.js";
 import {
+  createUser,
   getUser,
   login,
   updateFavorites,
@@ -30,6 +31,7 @@ router.put("/recipes/:recipeId", postReview);
 router.get("/categories", getAllCategories);
 
 router.get("/user", authMiddleware, getUser);
+router.post("/user/register", createUser);
 router.post("/user/authenticate", login);
 router.put("/user/uploaded", updateUploaded);
 router.put("/user/favorites", updateFavorites);
