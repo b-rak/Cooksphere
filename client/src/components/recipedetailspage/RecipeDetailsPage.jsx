@@ -9,10 +9,15 @@ import { Reviews } from "./Reviews";
 export function RecipeDetailsPage() {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
-  useEffect(() => {
+
+  const fetchRecipe = () => {
     getRecipe(recipeId)
       .then((data) => setRecipe(data))
       .catch((e) => console.log(e));
+  };
+
+  useEffect(() => {
+    fetchRecipe();
   }, [recipeId]);
 
   if (!recipe) {
@@ -29,6 +34,7 @@ export function RecipeDetailsPage() {
           reviews={recipe.reviews.filter(
             (review) => review.message.trim() !== ""
           )}
+          refreshRecipe={fetchRecipe}
         />
       </div>
     </>

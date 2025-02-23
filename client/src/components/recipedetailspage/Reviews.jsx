@@ -5,7 +5,7 @@ import { rateAndReview } from "../../services/ApiClient";
 import { Checkbox } from "../common/Checkbox";
 import { Rating } from "../Rating";
 
-export function Reviews({ reviews }) {
+export function Reviews({ reviews, refreshRecipe }) {
   const { recipeId } = useParams();
   const { currentUser } = useAuthContext();
 
@@ -28,6 +28,7 @@ export function Reviews({ reviews }) {
       timestamp: new Date().toISOString(),
     };
     await rateAndReview(recipeId, newReview);
+    refreshRecipe();
   }
 
   function validate() {

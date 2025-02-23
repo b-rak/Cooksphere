@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { updateFavorites } from "../../services/ApiClient";
+import { getUser } from "../../services/UserService";
 import { Rating } from "../Rating";
 
 export function GeneralCard({ recipe }) {
-  const { currentUser } = useAuthContext();
+  const { currentUser, setCurrentUser } = useAuthContext();
   const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
@@ -30,6 +31,8 @@ export function GeneralCard({ recipe }) {
     const newFavoriteStatus = !favorite;
     setFavorite(newFavoriteStatus);
     await updateFavorites(currentUser, recipe, newFavoriteStatus);
+    const user = await getUser();
+    setCurrentUser(user);
   }
 
   return (

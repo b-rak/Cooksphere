@@ -5,6 +5,7 @@ import {
   uploadImage,
   uploadRecipe,
 } from "../services/ApiClient";
+import { getUser } from "../services/UserService";
 import { Input } from "./common/Input";
 import { FileUpload } from "./FileUpload";
 import { Ingredient } from "./Ingredient";
@@ -12,7 +13,7 @@ import { Instruction } from "./Instruction";
 
 // ! General component: i know this file is a mess, but the tracking the form state and validation stressed me a lot.
 export function Upload() {
-  const { currentUser } = useAuthContext();
+  const { currentUser, setCurrentUser } = useAuthContext();
 
   const [numOfIngredients, setNumOfIngredients] = useState(1);
   const [numOfInstructions, setNumOfInstructions] = useState(1);
@@ -156,6 +157,8 @@ export function Upload() {
     const formatted = formatFormData(updatedFormState);
     const recipe = await uploadRecipe(formatted);
     await updateUploaded(currentUser, recipe);
+    const user = await getUser();
+    setCurrentUser(user);
     setFormState(initialState);
     setNumOfIngredients(1);
     setNumOfInstructions(1);
