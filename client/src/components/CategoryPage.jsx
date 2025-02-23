@@ -53,7 +53,7 @@ export function CategoryPage() {
             </h3>
           </div>
           <div className="px-2 py-4">
-            <SortSelect setSorting={setSorting} />
+            <SortSelect sorting={sorting} setSorting={setSorting} />
             <RecipeResults
               recipes={filtered}
               message="No results matching the filter selection."
