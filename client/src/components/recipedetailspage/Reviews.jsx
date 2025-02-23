@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { rateAndReview } from "../../services/ApiClient";
 import { Checkbox } from "../common/Checkbox";
@@ -47,52 +47,62 @@ export function Reviews({ reviews, refreshRecipe }) {
         <h2 className="text-xl font-semibold font-roboto px-4 text-white">
           Reviews
         </h2>
-        <form
-          className="m-4 py-2 px-20 rounded-md bg-lightbeige flex flex-col gap-2"
-          onSubmit={handleSubmit}
-        >
-          <span>
-            Here you can rate the recipe and give feedback to the creator and
-            other users. You can also rate the recipe without writing a review.
-          </span>
-          <Rating rating={rating} type="rate" setRating={setRating} />
-          <Checkbox
-            id="rating-only"
-            value={onlyRating}
-            text="Select to give only rating without a review"
-            handleChange={handleChange}
-          />
-          <textarea
-            name="user-review"
-            id="user-review"
-            value={review}
-            rows={4}
-            onChange={(event) => setReview(event.target.value)}
-            className={
-              (onlyRating ? "hidden" : "block") +
-              " outline-none rounded-md px-1"
-            }
-          ></textarea>
-          <button
-            type="submit"
-            className="bg-orange text-white hover:bg-deeporange disabled:bg-deeporange rounded-md px-2 py-1 uppercase text-sm w-fit"
-            disabled={validate()}
+        {Object.keys(currentUser).length ? (
+          <form
+            className="m-4 py-2 px-20 rounded-md bg-lightbeige flex flex-col gap-2"
+            onSubmit={handleSubmit}
           >
-            {!onlyRating ? "Post review" : "Rate without Review"}
-          </button>
-        </form>
+            <span>
+              Here you can rate the recipe and give feedback to the creator and
+              other users. You can also rate the recipe without writing a
+              review.
+            </span>
+            <Rating rating={rating} type="rate" setRating={setRating} />
+            <Checkbox
+              id="rating-only"
+              value={onlyRating}
+              text="Select to give only rating without a review"
+              handleChange={handleChange}
+            />
+            <textarea
+              name="user-review"
+              id="user-review"
+              value={review}
+              rows={4}
+              onChange={(event) => setReview(event.target.value)}
+              className={
+                (onlyRating ? "hidden" : "block") +
+                " outline-none rounded-md px-1"
+              }
+            ></textarea>
+            <button
+              type="submit"
+              className="bg-orange text-white hover:bg-deeporange disabled:bg-deeporange rounded-md px-2 py-1 uppercase text-sm w-fit"
+              disabled={validate()}
+            >
+              {!onlyRating ? "Post review" : "Rate without Review"}
+            </button>
+          </form>
+        ) : (
+          <div className="m-4 py-2 px-20 rounded-md bg-lightbeige flex flex-col gap-2 text-center">
+            <p>Please login before submitting a rating or review.</p>
+            <Link to="/login">
+              <button className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit">
+                Login
+              </button>
+            </Link>
+          </div>
+        )}
         <div className="flex flex-col gap-4 p-4">
           {reviews.map((review, index) => {
             return (
-              <>
-                <div key={index} className="py-2 rounded-md bg-lightbeige">
-                  <div className="flex justify-between px-4">
-                    <span className="font-semibold">{review.author}</span>
-                    <span>{formatDate(review.timestamp)}</span>
-                  </div>
-                  <span className="px-8">{review.message}</span>
+              <div key={index} className="py-2 rounded-md bg-lightbeige">
+                <div className="flex justify-between px-4">
+                  <span className="font-semibold">{review.author}</span>
+                  <span>{formatDate(review.timestamp)}</span>
                 </div>
-              </>
+                <span className="px-8">{review.message}</span>
+              </div>
             );
           })}
         </div>

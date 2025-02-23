@@ -58,19 +58,27 @@ export function GeneralCard({ recipe }) {
                 {formatCookingTime(recipe.cookingTimeInMinutes)}
               </span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-end">
               <Rating rating={recipe.rating} />
-              <button
-                className="flex bg-orange text-white hover:bg-deeporange items-center gap-2 rounded-md px-2 py-1 uppercase text-sm"
-                onClick={handleFavorite}
-              >
-                <img
-                  src={favorite ? "/heartfull.svg" : "/heart.svg"}
-                  alt=""
-                  className="w-6 h-6"
-                />
-                {favorite ? "Remove from favorites" : "Add to favorites"}
-              </button>
+              <div className="flex flex-col items-end gap-2">
+                {!Object.keys(currentUser).length && (
+                  <p className="text-white text-sm">
+                    Login to save recipes for later
+                  </p>
+                )}
+                <button
+                  className="flex bg-orange text-white hover:bg-deeporange disabled:bg-deeporange items-center gap-2 rounded-md px-2 py-1 uppercase text-sm w-fit"
+                  onClick={handleFavorite}
+                  disabled={!Object.keys(currentUser).length}
+                >
+                  <img
+                    src={favorite ? "/heartfull.svg" : "/heart.svg"}
+                    alt=""
+                    className="w-6 h-6"
+                  />
+                  {favorite ? "Remove from favorites" : "Add to favorites"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
