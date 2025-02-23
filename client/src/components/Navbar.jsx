@@ -11,9 +11,6 @@ export function Navbar() {
         <h1 className="flex-grow text-center font-fira font-black italic text-4xl">
           Cooksphere
         </h1>
-        <nav>
-          <a href=""></a>
-        </nav>
         <ProfileIcon />
       </header>
     </>

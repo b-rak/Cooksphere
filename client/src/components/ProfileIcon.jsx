@@ -13,7 +13,7 @@ export function ProfileIcon() {
   async function logout() {
     Cookies.remove("accessToken");
     setOpenMenu(false);
-    setCurrentUser(null);
+    setCurrentUser({});
     await navigate("/");
   }
 
@@ -46,7 +46,7 @@ export function ProfileIcon() {
   return (
     <>
       <div className="relative">
-        {currentUser ? (
+        {Object.keys(currentUser).length !== 0 ? (
           <>
             <img
               src={"/profile_" + currentUser.image + ".png"}

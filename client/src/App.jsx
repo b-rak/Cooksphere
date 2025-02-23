@@ -78,7 +78,13 @@ function App() {
           <Route path="/search" element={<SearchResultPage />} />
           <Route
             path="/login"
-            element={currentUser ? <Navigate to="/" /> : <LoginPage />}
+            element={
+              Object.keys(currentUser).length ? (
+                <Navigate to="/" />
+              ) : (
+                <LoginPage />
+              )
+            }
           />
         </Routes>
       </main>
