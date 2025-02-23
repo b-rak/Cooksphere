@@ -1,4 +1,7 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
+const CLOUDINARY_UPLOAD_URL =
+  import.meta.env.VITE_CLOUDINARY_UPLOAD_URL ||
+  "https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload";
 
 async function makeServerRequest(endpoint, options) {
   try {
@@ -46,7 +49,7 @@ const getLatestRecipes = async () => {
 
 const uploadRecipe = async (recipeData) => {
   try {
-    return await makeServerRequest("recipe", {
+    return await makeServerRequest("recipes", {
       method: "POST",
       body: JSON.stringify(recipeData),
       headers: { "Content-Type": "application/json" },
@@ -58,13 +61,10 @@ const uploadRecipe = async (recipeData) => {
 
 const uploadImage = async (formData) => {
   try {
-    const response = await fetch(
-      "https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const response = await fetch(CLOUDINARY_UPLOAD_URL, {
+      method: "POST",
+      body: formData,
+    });
     if (!response.ok) {
       throw new Error("Error uploading image");
     }
