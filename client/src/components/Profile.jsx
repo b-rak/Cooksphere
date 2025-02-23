@@ -21,7 +21,6 @@ export function Profile() {
   }
 
   useEffect(() => {
-    if (!currentUser) return;
     if (currentUser.favoriteRecipes) {
       setFavorites(currentUser.favoriteRecipes);
       setUploaded(currentUser.uploadedRecipes);

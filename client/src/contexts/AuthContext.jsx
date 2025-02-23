@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
 
   return (
     <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
