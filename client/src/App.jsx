@@ -44,7 +44,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main className="bg-lightbeige h-[calc(100vh-5rem)]">
+      <main className="bg-lightbeige min-h-[calc(100vh-5rem)]">
         <Routes>
           <Route
             path="/"
