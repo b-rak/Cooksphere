@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { updateFavorites } from "../../services/ApiClient";
@@ -54,7 +54,7 @@ export function GeneralCard({ recipe }) {
                   </span>
                 </Link>
               </div>
-              <span className="text-white">
+              <span className="text-white" data-testid="cookingtime">
                 {formatCookingTime(recipe.cookingTimeInMinutes)}
               </span>
             </div>
