@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { getUser, register } from "../../services/UserService";

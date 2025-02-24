@@ -1,3 +1,5 @@
+import React from "react";
+
 export function Input({ id, name, value, text, error, handleChange }) {
   return (
     <>
