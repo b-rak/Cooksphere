@@ -13,3 +13,9 @@ node_modules
 
 # Images (now accessed from cloud)
 images
+
+# Environment
+.env
+
+# coverage
+client/coverage
