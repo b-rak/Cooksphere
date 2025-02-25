@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { rateAndReview } from "../../services/ApiClient";
@@ -80,7 +80,7 @@ export function Reviews({ reviews, refreshRecipe }) {
               className="bg-orange text-white hover:bg-deeporange disabled:bg-deeporange rounded-md px-2 py-1 uppercase text-sm w-fit"
               disabled={validate()}
             >
-              {!onlyRating ? "Post review" : "Rate without Review"}
+              {!onlyRating ? "Post review" : "Rate without review"}
             </button>
           </form>
         ) : (
@@ -93,7 +93,7 @@ export function Reviews({ reviews, refreshRecipe }) {
             </Link>
           </div>
         )}
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-4 p-4" data-testid="review-list">
           {reviews.map((review, index) => {
             return (
               <div key={index} className="py-2 rounded-md bg-lightbeige">

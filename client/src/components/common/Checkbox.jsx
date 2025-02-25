@@ -1,10 +1,21 @@
-export function Checkbox ({id, value, text, handleChange}) {
+import React from "react";
+
+export function Checkbox({ id, value, text, handleChange }) {
   return (
     <>
       <div>
-        <input type="checkbox" id={id} name={id} value={value} onChange={(event) => handleChange(event)} className="accent-softyellow" />
-        <label htmlFor={id} className='ml-2'>{text}</label>
+        <input
+          type="checkbox"
+          id={id}
+          name={id}
+          value={value}
+          onChange={(event) => handleChange(event)}
+          className="accent-softyellow"
+        />
+        <label htmlFor={id} className="ml-2">
+          {text}
+        </label>
       </div>
     </>
   );
-};
+}

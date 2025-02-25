@@ -5,7 +5,7 @@ import { Instructions } from "../../components/recipedetailspage/Instructions.js
 import { AuthContext } from "../../contexts/AuthContext.jsx";
 import recipe from "../mocks/recipe.js";
 
-describe("Ingredients Component", () => {
+describe("Instructions Component", () => {
   const setMockCurrentUser = jest.fn();
 
   function renderComponent() {
