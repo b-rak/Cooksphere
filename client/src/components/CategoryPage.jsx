@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { config } from "../config/config";
 import { getRecipes } from "../services/ApiClient";
 import { filterRecipes } from "../utils/filterRecipes";
 import { categories } from "../utils/imagePaths";
@@ -10,7 +11,7 @@ import { SortSelect } from "./SortSelect";
 
 export function CategoryPage() {
   const { category } = useParams();
-  const url = `${import.meta.env.VITE_CLOUDINARY_IMAGE_URL}/${categories[category]}.jpg`;
+  const url = `${config.CLOUDINARY_IMAGE_URL}/${categories[category]}.jpg`;
 
   const [recipes, setRecipes] = useState([]);
   const [filtered, setFiltered] = useState([]);

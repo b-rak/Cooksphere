@@ -1,5 +1,7 @@
 import Cookies from "js-cookie";
-const BASE_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
+import { config } from "../config/config";
+
+const BASE_URL = config.SERVER_URL || "http://localhost:3000";
 
 async function makeServerRequest(endpoint, options) {
   try {

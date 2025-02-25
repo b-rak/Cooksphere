@@ -1,11 +1,12 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import { config } from "../config/config";
 import { heroImageIds } from "../utils/imagePaths";
 
 export function Hero() {
   const imageIds = heroImageIds;
   const random = useMemo(() => Math.floor(Math.random() * imageIds.length), []);
-  const heroURL = `${import.meta.env.VITE_CLOUDINARY_IMAGE_URL}/${imageIds[random]}.jpg`;
+  const heroURL = `${config.CLOUDINARY_IMAGE_URL}/${imageIds[random]}.jpg`;
 
   const [input, setInput] = useState("");
   function handleChange(event) {
@@ -23,6 +24,7 @@ export function Hero() {
       <div
         className="h-[32rem] flex flex-col items-center gap-4 pt-8 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroURL})` }}
+        data-testid="hero-container"
       >
         <div className="bg-brown bg-opacity-75 p-2 rounded-md">
           <h3 className="mb-2 text-center font-medium text-white">

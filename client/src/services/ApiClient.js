@@ -1,6 +1,8 @@
-const BASE_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
+import { config } from "../config/config";
+
+const BASE_URL = config.SERVER_URL || "http://localhost:3000";
 const CLOUDINARY_UPLOAD_URL =
-  import.meta.env.VITE_CLOUDINARY_UPLOAD_URL ||
+  config.CLOUDINARY_UPLOAD_URL ||
   "https://api.cloudinary.com/v1_1/drm5qsq0p/image/upload";
 
 async function makeServerRequest(endpoint, options) {
