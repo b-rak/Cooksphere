@@ -2,35 +2,21 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { Ingredients } from "../../components/recipedetailspage/Ingredients.jsx";
-import { AuthContext } from "../../contexts/AuthContext.jsx";
 import recipe from "../mocks/recipe.js";
 
 describe("Ingredients Component", () => {
-  const setMockCurrentUser = jest.fn();
-
   function renderComponent() {
     render(
-      <AuthContext.Provider
-        value={{
-          currentUser: {},
-          setCurrentUser: setMockCurrentUser,
-        }}
-      >
-        <MemoryRouter initialEntries={[`/recipe/${recipe._id}`]}>
-          <Routes>
-            <Route
-              path={"/recipe/:recipeId"}
-              element={<Ingredients ingredients={recipe.ingredients} />}
-            />
-          </Routes>
-        </MemoryRouter>
-      </AuthContext.Provider>
+      <MemoryRouter initialEntries={[`/recipe/${recipe._id}`]}>
+        <Routes>
+          <Route
+            path={"/recipe/:recipeId"}
+            element={<Ingredients ingredients={recipe.ingredients} />}
+          />
+        </Routes>
+      </MemoryRouter>
     );
   }
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
 
   it("should render the component", () => {
     renderComponent();
