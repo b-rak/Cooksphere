@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { searchRecipes } from "../services/ApiClient";
 import { filterRecipes } from "../utils/filterRecipes";
@@ -39,7 +39,10 @@ export function SearchResultPage() {
           updateFilter={(filter) => setFilter(filter)}
         />
         <div className="w-full pt-12 pb-4">
-          <h2 className="text-2xl font-bold py-1 font-fira">{`Search results for "${searchParams.get("q")}"`}</h2>
+          <h2
+            className="text-2xl font-bold py-1 font-fira"
+            data-testid="search-heading"
+          >{`Search results for "${searchParams.get("q")}"`}</h2>
           <SortSelect setSorting={setSorting} />
           <RecipeResults
             recipes={filtered}
