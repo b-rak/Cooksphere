@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import {
   updateUploaded,
@@ -234,144 +234,143 @@ export function Upload() {
   }
 
   return (
-    <>
-      <form
-        key={formKey}
-        onSubmit={handleUpload}
-        className="flex flex-col gap-4"
-      >
-        <h2 className="text-2xl font-bold font-fira">Upload Recipe</h2>
-        {/* name */}
-        <div className="bg-brown rounded-md p-2 w-fit">
-          <Input
-            id="recipe-name"
-            name="name"
-            value={formState.name}
-            text="Name:"
-            error={errorState.name}
-            handleChange={handleChange}
-          />
-        </div>
-        {/* ingredients */}
-        <div className="flex flex-col gap-4 bg-brown rounded-md p-2">
-          {Array.from({ length: numOfIngredients }).map((elem, index) => (
-            <Ingredient
-              key={index}
-              number={index + 1}
-              values={formState.ingredients}
-              handleChange={handleChange}
-            />
-          ))}
-          <button
-            className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
-            onClick={addIngredient}
-            type="button"
-          >
-            Add ingredient
-          </button>
-        </div>
-        {/* instructions */}
-        <div className="flex flex-col gap-4 bg-brown rounded-md p-2">
-          {Array.from({ length: numOfInstructions }).map((elem, index) => (
-            <>
-              <Instruction
-                number={index + 1}
-                value={formState.ingredients["ingredient-" + (index + 1)]}
-                handleChange={handleChange}
-              />
-            </>
-          ))}
-          <button
-            className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
-            onClick={addInstruction}
-            type="button"
-          >
-            Add instruction
-          </button>
-        </div>
-        {/* cooking time */}
-        <div className="flex items-center gap-4 bg-brown rounded-md p-2">
-          <span className="text-white w-32">Cooking time</span>
-          <Input
-            id="time-hours"
-            name="hours"
-            value={formState.cookingTime.hours}
-            text="Hours:"
-            handleChange={handleChange}
-          />
-          <Input
-            id="time-minutes"
-            name="minutes"
-            value={formState.cookingTime.minutes}
-            text="Minutes:"
-            handleChange={handleChange}
-          />
-          {errorState.cookingTime && (
-            <span className="text-error">Cooking time is required.</span>
-          )}
-        </div>
-        {/* category */}
-        <div className="bg-brown rounded-md p-2">
-          <label htmlFor="category" className="text-white">
-            Category
-          </label>
-          <select
-            name="category"
-            id="category"
-            className="px-2 py-2 rounded-lg ml-4 cursor-pointer bg-softyellow"
-            onChange={handleChange}
-          >
-            <option disabled selected value hidden>
-              -- Select a category --
-            </option>
-            <option value="Breakfast">Breakfast</option>
-            <option value="Pasta">Pasta</option>
-            <option value="Dessert">Dessert</option>
-            <option value="Vegan">Vegan</option>
-          </select>
-          {errorState.category && (
-            <span className="text-error ml-4">Category is required.</span>
-          )}
-        </div>
-        {/* tags */}
-        <div className="flex items-center gap-4 bg-brown rounded-md p-2">
-          <span className="text-white">Tags</span>
-          <Input
-            id="tag-1"
-            name="tag-1"
-            value={formState.tags["tag-1"]}
-            text="Tag 1:"
-            handleChange={handleChange}
-          />
-          <Input
-            id="tag-2"
-            name="tag-2"
-            value={formState.tags["tag-2"]}
-            text="Tag 2:"
-            handleChange={handleChange}
-          />
-          <Input
-            id="tag-3"
-            name="tag-3"
-            value={formState.tags["tag-3"]}
-            text="Tag 3:"
-            handleChange={handleChange}
-          />
-        </div>
-        {/* image */}
-        <FileUpload
-          value={formState.image}
-          error={errorState.image}
+    <form
+      key={formKey}
+      onSubmit={handleUpload}
+      className="flex flex-col gap-4"
+      data-testid="upload-form"
+    >
+      <h2 className="text-2xl font-bold font-fira">Upload Recipe</h2>
+      {/* name */}
+      <div className="bg-brown rounded-md p-2 w-fit">
+        <Input
+          id="recipe-name"
+          name="name"
+          value={formState.name}
+          text="Name:"
+          error={errorState.name}
           handleChange={handleChange}
         />
-
+      </div>
+      {/* ingredients */}
+      <div className="flex flex-col gap-4 bg-brown rounded-md p-2">
+        {Array.from({ length: numOfIngredients }).map((elem, index) => (
+          <Ingredient
+            key={index}
+            number={index + 1}
+            values={formState.ingredients}
+            handleChange={handleChange}
+          />
+        ))}
         <button
-          className="bg-orange text-white hover:bg-deeporange gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
-          type="submit"
+          className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
+          onClick={addIngredient}
+          type="button"
         >
-          Upload
+          Add ingredient
         </button>
-      </form>
-    </>
+      </div>
+      {/* instructions */}
+      <div className="flex flex-col gap-4 bg-brown rounded-md p-2">
+        {Array.from({ length: numOfInstructions }).map((elem, index) => (
+          <Instruction
+            key={index}
+            number={index + 1}
+            value={formState.ingredients["ingredient-" + (index + 1)]}
+            handleChange={handleChange}
+          />
+        ))}
+        <button
+          className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
+          onClick={addInstruction}
+          type="button"
+        >
+          Add instruction
+        </button>
+      </div>
+      {/* cooking time */}
+      <div className="flex items-center gap-4 bg-brown rounded-md p-2">
+        <span className="text-white w-32">Cooking time</span>
+        <Input
+          id="time-hours"
+          name="hours"
+          value={formState.cookingTime.hours}
+          text="Hours:"
+          handleChange={handleChange}
+        />
+        <Input
+          id="time-minutes"
+          name="minutes"
+          value={formState.cookingTime.minutes}
+          text="Minutes:"
+          handleChange={handleChange}
+        />
+        {errorState.cookingTime && (
+          <span className="text-error">Cooking time is required.</span>
+        )}
+      </div>
+      {/* category */}
+      <div className="bg-brown rounded-md p-2">
+        <label htmlFor="category" className="text-white">
+          Category
+        </label>
+        <select
+          name="category"
+          id="category"
+          className="px-2 py-2 rounded-lg ml-4 cursor-pointer bg-softyellow"
+          onChange={handleChange}
+          value={formState.category}
+        >
+          <option disabled hidden value="">
+            -- Select a category --
+          </option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Pasta">Pasta</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Vegan">Vegan</option>
+        </select>
+        {errorState.category && (
+          <span className="text-error ml-4">Category is required.</span>
+        )}
+      </div>
+      {/* tags */}
+      <div className="flex items-center gap-4 bg-brown rounded-md p-2">
+        <span className="text-white">Tags</span>
+        <Input
+          id="tag-1"
+          name="tag-1"
+          value={formState.tags["tag-1"]}
+          text="Tag 1:"
+          handleChange={handleChange}
+        />
+        <Input
+          id="tag-2"
+          name="tag-2"
+          value={formState.tags["tag-2"]}
+          text="Tag 2:"
+          handleChange={handleChange}
+        />
+        <Input
+          id="tag-3"
+          name="tag-3"
+          value={formState.tags["tag-3"]}
+          text="Tag 3:"
+          handleChange={handleChange}
+        />
+      </div>
+      {/* image */}
+      <FileUpload
+        value={formState.image}
+        error={errorState.image}
+        handleChange={handleChange}
+      />
+
+      <button
+        className="bg-orange text-white hover:bg-deeporange gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
+        type="submit"
+      >
+        Upload
+      </button>
+    </form>
   );
 }

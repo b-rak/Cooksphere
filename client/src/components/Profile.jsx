@@ -37,7 +37,7 @@ export function Profile() {
             alt="Profilepicture"
             className="w-32 rounded-full border-solid border-deepbrown border-2"
           />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4" data-testid="user-card">
             <div className="text-xl">
               {currentUser
                 ? currentUser.firstname + " " + currentUser.lastname
