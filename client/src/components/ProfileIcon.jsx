@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useAuthContext } from "../contexts/AuthContext";
 
@@ -67,7 +67,7 @@ export function ProfileIcon() {
                   onClick={toProfile}
                   className="border-y border-y-softyellow w-full p-2 hover:bg-softyellow hover:text-deepbrown cursor-pointer"
                 >
-                  Mein Profil
+                  My Profile
                 </span>
                 <span
                   className="cursor-pointer p-2 hover:bg-softyellow hover:text-deepbrown hover:rounded-b-lg"

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { Popup } from "./Popup";
 import { RecipeResults } from "./RecipeResults";
