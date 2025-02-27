@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { config } from "../config/config";
 import { getRecipes } from "../services/ApiClient";
@@ -48,8 +48,12 @@ export function CategoryPage() {
             <div
               className="h-80 bg-cover bg-[50%_45%] bg-no-repeat opacity-75"
               style={{ backgroundImage: `url(${url})` }}
+              data-testid="category-image"
             ></div>
-            <h3 className="absolute top-12 left-4 text-5xl font-bold font-fira">
+            <h3
+              className="absolute top-12 left-4 text-5xl font-bold font-fira"
+              data-testid="category-name"
+            >
               {category + " Recipes"}
             </h3>
           </div>
