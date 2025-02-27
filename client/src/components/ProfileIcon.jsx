@@ -57,7 +57,7 @@ export function ProfileIcon() {
             />
             {openMenu ? (
               <div
-                className="flex flex-col absolute right-0 top-20 w-40 bg-brown rounded-lg text-right text-lightbeige"
+                className="flex flex-col absolute right-0 top-20 w-40 bg-brown rounded-lg text-right text-lightbeige z-20"
                 ref={menuRef}
               >
                 <div className="p-2 font-medium">
