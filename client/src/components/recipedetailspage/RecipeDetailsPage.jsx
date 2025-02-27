@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getRecipe } from "../../services/ApiClient";
 import { GeneralCard } from "./GeneralCard";
