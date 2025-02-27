@@ -8,7 +8,7 @@ export function Popup({ closePopup }) {
 
   return (
     <div
-      className="fixed top-0 bottom-0 left-0 right-0 flex justify-center bg-black/30 z-10 py-8 overflow-y-scroll"
+      className="fixed top-0 bottom-0 left-0 right-0 flex justify-center bg-black/30 z-10 py-4 overflow-y-scroll"
       onClick={(event) => closePopup(event)}
       data-testid="popup"
     >

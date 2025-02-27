@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import {
+  getCategories,
   updateUploaded,
   uploadImage,
   uploadRecipe,
@@ -11,7 +12,7 @@ import { FileUpload } from "./FileUpload";
 import { Ingredient } from "./Ingredient";
 import { Instruction } from "./Instruction";
 
-// ! General component: i know this file is a mess, but the tracking the form state and validation stressed me a lot.
+// ! General comment: i know this file is a mess, but tracking the form state and validation stressed me a lot.
 export function Upload() {
   const { currentUser, setCurrentUser } = useAuthContext();
 
@@ -45,6 +46,15 @@ export function Upload() {
     image: false,
   };
   const [errorState, setErrorState] = useState(initialErrorState);
+  const [uploadError, setUploadError] = useState(false);
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories()
+      .then((data) => setCategories(data))
+      .catch((e) => console.log(e));
+  }, []);
 
   function addIngredient() {
     setNumOfIngredients((prev) => prev + 1);
@@ -75,47 +85,35 @@ export function Upload() {
     });
   }
 
-  // TODO: refactor
   function handleChange(event) {
-    const { name, value } = event.target;
+    const { name, value, type, files } = event.target;
     setFormState((prevState) => {
+      const updatedState = { ...prevState };
+
       if (name.includes("ingredient") || name.includes("measure")) {
-        return {
-          ...prevState,
-          ingredients: { ...prevState.ingredients, [name]: value },
-        };
+        updatedState.ingredients = { ...prevState.ingredients, [name]: value };
       } else if (name.includes("instruction")) {
-        return {
-          ...prevState,
-          instructions: { ...prevState.instructions, [name]: value },
+        updatedState.instructions = {
+          ...prevState.instructions,
+          [name]: value,
         };
       } else if (name === "hours" || name === "minutes") {
-        return {
-          ...prevState,
-          cookingTime: {
-            ...prevState.cookingTime,
-            [name]: value,
-          },
+        updatedState.cookingTime = {
+          ...prevState.cookingTime,
+          [name]: value,
         };
       } else if (name.includes("tag")) {
-        return {
-          ...prevState,
-          tags: {
-            ...prevState.tags,
-            [name]: value,
-          },
+        updatedState.tags = {
+          ...prevState.tags,
+          [name]: value,
         };
-      } else if (name === "image") {
-        return {
-          ...prevState,
-          [name]: event.target.files[0],
-        };
+      } else if (name === "image" && type === "file") {
+        updatedState[name] = files[0];
+      } else {
+        updatedState[name] = value;
       }
 
-      return {
-        ...prevState,
-        [name]: value,
-      };
+      return updatedState;
     });
   }
 
@@ -141,15 +139,14 @@ export function Upload() {
   async function handleUpload(event) {
     event.preventDefault();
 
-    // ! Validation
     if (!validateFormData()) return;
 
     const imageUrl = await handleImageUpload(formState.image);
     if (!imageUrl) {
-      //TODO show error to user
-      console.log("Error uploading recipe");
+      setUploadError(true);
       return;
     }
+    setUploadError(false);
     const updatedFormState = {
       ...formState,
       image: imageUrl,
@@ -209,22 +206,27 @@ export function Upload() {
     };
   }
 
-  // TODO: validation incomplete
   function validateFormData() {
     const newErrorState = {};
     for (const key of Object.keys(formState)) {
       if (key === "ingredients") {
-        // ingredients: {
-        //   'ingredient-1': '',
-        //   'measure-1': ''
-        // },
+        const ingredients = formState[key];
+        newErrorState[key] = !Object.keys(ingredients).every(
+          (ingKey) => ingredients[ingKey].trim() !== ""
+        );
       } else if (key === "instructions") {
-        // instructions: {'instruction-1': ''},
+        const instructions = formState[key];
+        newErrorState[key] = !Object.keys(instructions).every(
+          (insKey) => instructions[insKey].trim() !== ""
+        );
       } else if (key === "cookingTime") {
         newErrorState[key] =
           !formState[key]["hours"] && !formState[key]["minutes"];
       } else if (key === "tags") {
-        // tags: {'tag-1': '', 'tag-2': '', 'tag-3': ''},
+        const tags = formState[key];
+        newErrorState[key] = Object.keys(tags).every(
+          (tagKey) => tags[tagKey].trim() === ""
+        );
       } else {
         newErrorState[key] = !formState[key];
       }
@@ -262,13 +264,20 @@ export function Upload() {
             handleChange={handleChange}
           />
         ))}
-        <button
-          className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
-          onClick={addIngredient}
-          type="button"
-        >
-          Add ingredient
-        </button>
+        <div>
+          <button
+            className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
+            onClick={addIngredient}
+            type="button"
+          >
+            Add ingredient
+          </button>
+          {errorState.ingredients && (
+            <span className="text-error ml-4">
+              There are empty ingredients/measures.
+            </span>
+          )}
+        </div>
       </div>
       {/* instructions */}
       <div className="flex flex-col gap-4 bg-brown rounded-md p-2">
@@ -280,13 +289,18 @@ export function Upload() {
             handleChange={handleChange}
           />
         ))}
-        <button
-          className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
-          onClick={addInstruction}
-          type="button"
-        >
-          Add instruction
-        </button>
+        <div>
+          <button
+            className="bg-orange text-white hover:bg-deeporange rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
+            onClick={addInstruction}
+            type="button"
+          >
+            Add instruction
+          </button>
+          {errorState.instructions && (
+            <span className="text-error ml-4">There are empty steps.</span>
+          )}
+        </div>
       </div>
       {/* cooking time */}
       <div className="flex items-center gap-4 bg-brown rounded-md p-2">
@@ -324,39 +338,45 @@ export function Upload() {
           <option disabled hidden value="">
             -- Select a category --
           </option>
-          <option value="Breakfast">Breakfast</option>
-          <option value="Pasta">Pasta</option>
-          <option value="Dessert">Dessert</option>
-          <option value="Vegan">Vegan</option>
+          {categories.map((category, index) => (
+            <option key={index} value={category.name}>
+              {category.name}
+            </option>
+          ))}
         </select>
         {errorState.category && (
           <span className="text-error ml-4">Category is required.</span>
         )}
       </div>
       {/* tags */}
-      <div className="flex items-center gap-4 bg-brown rounded-md p-2">
-        <span className="text-white">Tags</span>
-        <Input
-          id="tag-1"
-          name="tag-1"
-          value={formState.tags["tag-1"]}
-          text="Tag 1:"
-          handleChange={handleChange}
-        />
-        <Input
-          id="tag-2"
-          name="tag-2"
-          value={formState.tags["tag-2"]}
-          text="Tag 2:"
-          handleChange={handleChange}
-        />
-        <Input
-          id="tag-3"
-          name="tag-3"
-          value={formState.tags["tag-3"]}
-          text="Tag 3:"
-          handleChange={handleChange}
-        />
+      <div className="bg-brown rounded-md p-2">
+        <div className="flex items-center gap-4 mb-2">
+          <span className="text-white">Tags</span>
+          <Input
+            id="tag-1"
+            name="tag-1"
+            value={formState.tags["tag-1"]}
+            text="Tag 1:"
+            handleChange={handleChange}
+          />
+          <Input
+            id="tag-2"
+            name="tag-2"
+            value={formState.tags["tag-2"]}
+            text="Tag 2:"
+            handleChange={handleChange}
+          />
+          <Input
+            id="tag-3"
+            name="tag-3"
+            value={formState.tags["tag-3"]}
+            text="Tag 3:"
+            handleChange={handleChange}
+          />
+        </div>
+        {errorState.tags && (
+          <span className="text-error">At least one tag is required</span>
+        )}
       </div>
       {/* image */}
       <FileUpload
@@ -371,6 +391,11 @@ export function Upload() {
       >
         Upload
       </button>
+      {uploadError && (
+        <span className="text-error">
+          There was an error uploading your image. Please try again!
+        </span>
+      )}
     </form>
   );
 }

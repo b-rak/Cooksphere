@@ -39,7 +39,3 @@ npm run server
 ```
 
 Once both the frontend and the backend are running open http://localhost:5173 in your browser. Have fun!
-
-## Known Issues and Next Todos
-
-- Form validation is not complete yet
