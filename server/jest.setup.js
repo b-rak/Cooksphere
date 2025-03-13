@@ -7,12 +7,17 @@ import mongoose from "mongoose";
 import { connectDB, disconnectDB } from "./models";
 
 beforeAll(async () => {
+  jest.spyOn(console, "log").mockImplementation(() => {});
   await connectDB();
 });
 
 afterAll(async () => {
   await mongoose.connection.dropDatabase();
   await disconnectDB();
+});
+
+beforeEach(() => {
+  jest.clearAllMocks();
 });
 
 afterEach(async () => {
