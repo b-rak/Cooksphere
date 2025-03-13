@@ -11,7 +11,9 @@ describe("Instructions Component", () => {
         <Routes>
           <Route
             path={"/recipe/:recipeId"}
-            element={<Instructions instructions={recipe.instructions} />}
+            element={
+              <Instructions instructions={Object.values(recipe.instructions)} />
+            }
           />
         </Routes>
       </MemoryRouter>
@@ -27,7 +29,9 @@ describe("Instructions Component", () => {
     const listInstructions = screen.getByRole("list");
     for (let i = 0; i < listInstructions.children.length; i++) {
       const instruction = listInstructions.children[i].textContent;
-      expect(instruction).toEqual(`Step ${i + 1}${recipe.instructions[i]}`);
+      expect(instruction).toEqual(
+        `Step ${i + 1}${Object.values(recipe.instructions)[i]}`
+      );
     }
   });
 });

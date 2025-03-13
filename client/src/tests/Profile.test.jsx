@@ -11,6 +11,7 @@ jest.mock("../services/UserService.js", () => ({
 }));
 jest.mock("../services/ApiClient.js", () => ({
   BASE_URL: () => "http://localhost:3000",
+  getCategories: async () => ["Vegan"],
 }));
 
 describe("Profile Component", () => {

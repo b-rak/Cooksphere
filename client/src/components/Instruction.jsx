@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Instruction({ number, handleChange }) {
+export function Instruction({ number, value, handleChange }) {
   return (
     <>
       <div className="flex flex-col gap-1">
@@ -14,6 +14,7 @@ export function Instruction({ number, handleChange }) {
           id={"instruction-" + number}
           name={"instruction-" + number}
           rows="3"
+          value={value}
           className="outline-none rounded-md px-1"
           onChange={handleChange}
         ></textarea>

@@ -2,7 +2,11 @@ export default {
   _id: 123,
   name: "Test Recipe",
   category: "Dessert",
-  instructions: ["Step 1: Do step 1", "Step 2: Do step 2", "Step 3: Do step 3"],
+  instructions: {
+    "instruction-1": "Do step 1",
+    "instruction-2": "Do step 2",
+    "instruction-3": "Do step 3",
+  },
   image: "imageurl",
   tags: ["tag1", "tag2", "tag3"],
   ingredients: [

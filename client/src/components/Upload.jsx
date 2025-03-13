@@ -285,7 +285,7 @@ export function Upload() {
           <Instruction
             key={index}
             number={index + 1}
-            value={formState.ingredients["ingredient-" + (index + 1)]}
+            value={formState.instructions["instruction-" + (index + 1)]}
             handleChange={handleChange}
           />
         ))}
@@ -388,6 +388,7 @@ export function Upload() {
       <button
         className="bg-orange text-white hover:bg-deeporange gap-2 rounded-md px-2 py-1 uppercase text-sm cursor-pointer w-fit"
         type="submit"
+        data-testid="btn-upload"
       >
         Upload
       </button>
