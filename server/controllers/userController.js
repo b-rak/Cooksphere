@@ -88,12 +88,12 @@ const updateUploaded = async (req, res) => {
     const userDB = await User.findOne({ email: user.email });
     userDB.uploadedRecipes.push(recipe);
     await userDB.save();
-    res.send(userDB);
+    res.status(200).send(userDB);
   } catch (e) {
     console.log(e);
     return res.status(500).send({
       error: {
-        message: "Error updated uploaded recipes for user!",
+        message: "Error updating uploaded recipes for user!",
         code: 500,
       },
     });
@@ -122,12 +122,12 @@ const updateFavorites = async (req, res) => {
       );
     }
     await userDB.save();
-    res.send(userDB);
+    res.status(200).send(userDB);
   } catch (e) {
     console.log(e);
     return res.status(500).send({
       error: {
-        message: "Error updated uploaded recipes for user!",
+        message: "Error updating favorite recipes for user!",
         code: 500,
       },
     });
